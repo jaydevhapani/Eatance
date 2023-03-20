@@ -349,12 +349,12 @@ PODS:
   - React-jsinspector (0.63.4)
   - react-native-geolocation (2.1.0):
     - React-Core
-  - react-native-image-picker (2.4.0):
-    - React
+  - react-native-image-picker (5.3.1):
+    - React-Core
   - react-native-maps (0.27.1):
     - React
-  - react-native-netinfo (4.7.0):
-    - React
+  - react-native-netinfo (9.3.7):
+    - React-Core
   - react-native-safe-area-context (0.7.3):
     - React
   - react-native-splash-screen (3.3.0):
@@ -713,9 +713,9 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 93bd528844ad21dc07aab1c67cb10abae6df6949
   React-jsinspector: 58aef7155bc9a9683f5b60b35eccea8722a4f53a
   react-native-geolocation: 69f4fd37650b8e7fee91816d395e62dd16f5ab8d
-  react-native-image-picker: 4e63090db19a528e36c0cc07d1423c8c0cb4c4ef
+  react-native-image-picker: ec9b713e248760bfa0f879f0715391de4651a7cb
   react-native-maps: f4b89da81626ad7f151a8bfcb79733295d31ce5c
-  react-native-netinfo: ddaca8bbb9e6e914b1a23787ccb879bc642931c9
+  react-native-netinfo: 2517ad504b3d303e90d7a431b0fcaef76d207983
   react-native-safe-area-context: e200d4433aba6b7e60b52da5f37af11f7a0b0392
   react-native-splash-screen: 4312f786b13a81b5169ef346d76d33bc0c6dc457
   react-native-webview: db4682f1698ab4b17a5e88f951031d203ff8aea8
@@ -747,6 +747,6 @@ SPEC CHECKSUMS:
   Yoga: 4bd86afe9883422a7c4028c00e34790f560923d6
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: d02d04eeb1e73b17d15aeef39691658c4950c7d2
+PODFILE CHECKSUM: 31578510f7fb5b50c790ad80d14d003851926dea
 
-COCOAPODS: 1.12.0
+COCOAPODS: 1.11.3

@@ -14,7 +14,7 @@ import {userOperations} from './app/redux/reducers/UserReducer';
 import {navigationOperation} from './app/redux/reducers/NavigationReducer';
 import {checkoutDetailOperation} from './app/redux/reducers/CheckoutReducer';
 import {showDialogue} from './app/utils/EDAlert';
-import {Platform, View} from 'react-native';
+import {LogBox, Platform, View} from 'react-native';
 import NavigationService from './NavigationService';
 import {
   NOTIFICATION_TYPE,
@@ -41,7 +41,7 @@ const rootReducer = combineReducers({
 });
 
 const pharmaGlobalStore = createStore(rootReducer);
-
+LogBox.ignoreAllLogs();
 export default class App extends React.Component {
   constructor(props) {
     super(props);
