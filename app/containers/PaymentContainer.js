@@ -16,7 +16,7 @@ import { showDialogue, showNoInternetAlert } from '../utils/EDAlert';
 import { clearCartData } from '../utils/AsyncStorageHelper';
 import { saveCartDataInRedux, saveCartCount } from '../redux/actions/Checkout';
 import CheckOutBottomComponent from '../components/CheckOutBottomComponent';
-import ImagePicker from 'react-native-image-picker';
+import * as ImagePicker from 'react-native-image-picker';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
 const options = {
@@ -264,7 +264,7 @@ class PaymentContainer extends React.PureComponent {
 
     /** BUTTON EVENTS */
     buttonAddPrescriptionPressed = () => {
-        ImagePicker.showImagePicker(options, this.onImageSelectionHandler);
+        ImagePicker.launchImageLibrary(options, this.onImageSelectionHandler);
     }
     //#endregion
 

@@ -4,7 +4,7 @@ import Assets from '../assets';
 import {EDColors} from '../utils/EDColors';
 import Metrics from '../utils/metrics';
 import {showDialogue} from '../utils/EDAlert';
-import * as ImagePicker from "react-native-image-picker"
+import * as ImagePicker from 'react-native-image-picker';
 import {strings} from '../locales/i18n';
 import {debugLog} from '../utils/EDConstants';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
@@ -77,7 +77,7 @@ export default class EDProfilePicture extends Component {
   //#region
   /** BUTTON EVENTS */
   buttonChangeProfilePicturePressed = () => {
-    ImagePicker.showImagePicker(this.options, this.onImageSelectionHandler);
+    ImagePicker.launchImageLibrary(this.props, this.onImageSelectionHandler);
   };
   //#endregion
 
