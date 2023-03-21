@@ -297,7 +297,7 @@ PODS:
   - React-jsinspector (0.63.4)
   - react-native-geolocation (2.1.0):
     - React-Core
-  - react-native-image-picker (5.3.1):
+  - react-native-image-picker (4.10.3):
     - React-Core
   - react-native-maps (0.27.1):
     - React
@@ -630,7 +630,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 93bd528844ad21dc07aab1c67cb10abae6df6949
   React-jsinspector: 58aef7155bc9a9683f5b60b35eccea8722a4f53a
   react-native-geolocation: 69f4fd37650b8e7fee91816d395e62dd16f5ab8d
-  react-native-image-picker: ec9b713e248760bfa0f879f0715391de4651a7cb
+  react-native-image-picker: 60f4246eb5bb7187fc15638a8c1f13abd3820695
   react-native-maps: f4b89da81626ad7f151a8bfcb79733295d31ce5c
   react-native-netinfo: 2517ad504b3d303e90d7a431b0fcaef76d207983
   react-native-safe-area-context: e200d4433aba6b7e60b52da5f37af11f7a0b0392
@@ -665,6 +665,6 @@ SPEC CHECKSUMS:
   TOCropViewController: edfd4f25713d56905ad1e0b9f5be3fbe0f59c863
   Yoga: 4bd86afe9883422a7c4028c00e34790f560923d6
 
-PODFILE CHECKSUM: 691a0edae3a493abb049b9d12400d5fdc8c4a60a
+PODFILE CHECKSUM: 50e58fa115e843b284013c6b8628a8cdc013c2d8
 
-COCOAPODS: 1.12.0
+COCOAPODS: 1.11.3

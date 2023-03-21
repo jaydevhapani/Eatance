@@ -16,6 +16,8 @@ target 'Eatance' do
 
   pod 'RNImageCropPicker', :path => '../node_modules/react-native-image-crop-picker'
 
+  pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
+
   target 'EatanceTests' do
     inherit! :complete
     # Pods for testing

@@ -81,7 +81,7 @@ export const ACCESS_TOKEN = 'ACCESS_TOKEN';
 export const RESPONSE_FAIL = 0;
 export const RESPONSE_SUCCESS = 1;
 export const COUPON_ERROR = 2;
-export const GOOGLE_API_KEY = 'AIzaSyCZsXKBMGCb6T5FYqi5MpDrA88ThurF3HM';
+export const GOOGLE_API_KEY = 'AIzaSyByM9BhSB7Qm3adxhYR9Wf_b8_1ToWrD68';
 export const STORE_ERROR = 3;
 
 // NOTIFICATION_TYPE

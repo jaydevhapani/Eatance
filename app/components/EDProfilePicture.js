@@ -71,8 +71,8 @@ export default class EDProfilePicture extends Component {
 
   //#region
   /** BUTTON EVENTS */
-  buttonChangeProfilePicturePressed = () => {
-    launchImageLibrary(this.options, this.onImageSelectionHandler);
+  buttonChangeProfilePicturePressed = async () => {
+    await launchImageLibrary(this.options, this.onImageSelectionHandler);
   };
   //#endregion
 
@@ -82,6 +82,8 @@ export default class EDProfilePicture extends Component {
    * @param {The image response received from image picker} response
    */
   onImageSelectionHandler = (response) => {
+    let FirstObject = response?.assets[0];
+    console.log('FirstObject => ', FirstObject);
     if (response.didCancel) {
       debugLog('User cancelled image picker');
     } else if (response.error) {
@@ -90,9 +92,9 @@ export default class EDProfilePicture extends Component {
     } else if (response.customButton) {
       debugLog('User tapped custom button: ', response.customButton);
     } else {
-      this.setState({avatarSource: response});
+      this.setState({avatarSource: FirstObject});
       if (this.props.onImageSelectionHandler !== undefined) {
-        this.props.onImageSelectionHandler(response);
+        this.props.onImageSelectionHandler(FirstObject);
       }
     }
   };
