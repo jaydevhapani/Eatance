@@ -8,6 +8,7 @@ import ImagePicker from 'react-native-image-crop-picker';
 import {strings} from '../locales/i18n';
 import {debugLog} from '../utils/EDConstants';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
 
 export default class EDProfilePicture extends Component {
   //#region LIFE CYCLE METHODS
@@ -44,7 +45,7 @@ export default class EDProfilePicture extends Component {
           <Image
             source={
               this.state.avatarSource
-                ? {uri: this.state.avatarSource}
+                ? {uri: this.state.avatarSource.uri}
                 : this.props.imagePath
                 ? {uri: this.props.imagePath}
                 : this.props.placeholder || Assets.logo_pin_transparent
@@ -77,17 +78,7 @@ export default class EDProfilePicture extends Component {
   //#region
   /** BUTTON EVENTS */
   buttonChangeProfilePicturePressed = () => {
-    ImagePicker.openPicker({
-      width: 300,
-      height: 400,
-      cropping: true,
-    })
-      .then((image) => {
-        this.onImageSelectionHandler(image?.path, 'done');
-      })
-      .catch((error) => {
-        this.onImageSelectionHandler(error, 'error');
-      });
+    launchImageLibrary(this.options, this.onImageSelectionHandler);
   };
   //#endregion
 
@@ -96,15 +87,19 @@ export default class EDProfilePicture extends Component {
    *
    * @param {The image response received from image picker} response
    */
-  onImageSelectionHandler = (PathOrError, Check) => {
-    if (Check == 'done') {
-      this.setState({avatarSource: PathOrError});
-      if (this.props.onImageSelectionHandler !== undefined) {
-        this.props.onImageSelectionHandler(PathOrError);
-      }
+  onImageSelectionHandler = (response) => {
+    if (response.didCancel) {
+      debugLog('User cancelled image picker');
+    } else if (response.error) {
+      debugLog('ImagePicker Error: ', response.error);
+      showDialogue(response.error + '');
+    } else if (response.customButton) {
+      debugLog('User tapped custom button: ', response.customButton);
     } else {
-      debugLog('ImagePicker Error: ', rPathOrError);
-      showDialogue(PathOrError + '');
+      this.setState({avatarSource: response});
+      if (this.props.onImageSelectionHandler !== undefined) {
+        this.props.onImageSelectionHandler(response);
+      }
     }
   };
 }

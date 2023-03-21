@@ -21,7 +21,8 @@ import {showDialogue, showNoInternetAlert} from '../utils/EDAlert';
 import {clearCartData} from '../utils/AsyncStorageHelper';
 import {saveCartDataInRedux, saveCartCount} from '../redux/actions/Checkout';
 import CheckOutBottomComponent from '../components/CheckOutBottomComponent';
-import ImagePicker from 'react-native-image-crop-picker';
+// import * as ImagePicker from 'react-native-image-picker';
+import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
 const options = {
@@ -66,8 +67,9 @@ class PaymentContainer extends React.PureComponent {
             ]}
             source={{
               uri:
-                this.state.prescriptionImageSource !== undefined
-                  ? this.state.prescriptionImageSource
+                this.state.prescriptionImageSource !== undefined &&
+                this.state.prescriptionImageSource.uri !== undefined
+                  ? this.state.prescriptionImageSource.uri
                   : '',
             }}
           />
@@ -78,7 +80,10 @@ class PaymentContainer extends React.PureComponent {
             style={{
               flexDirection: isRTLCheck() ? 'row-reverse' : 'row',
               marginTop:
-                this.state.prescriptionImageSource !== undefined ? 20 : 0,
+                this.state.prescriptionImageSource !== undefined &&
+                this.state.prescriptionImageSource.uri !== undefined
+                  ? 20
+                  : 0,
             }}
             onPress={this.buttonAddPrescriptionPressed}>
             <MaterialIcon
@@ -89,7 +94,8 @@ class PaymentContainer extends React.PureComponent {
             <EDRTLText
               style={style.addPrescriptionText}
               title={
-                this.state.prescriptionImageSource !== undefined
+                this.state.prescriptionImageSource !== undefined &&
+                this.state.prescriptionImageSource.uri !== undefined
                   ? strings('payment.updatePrescription')
                   : strings('payment.addPrescription')
               }
@@ -163,7 +169,8 @@ class PaymentContainer extends React.PureComponent {
                 <EDRTLText
                   style={style.addPrescriptionText}
                   title={
-                    this.state.prescriptionImageSource !== undefined
+                    this.state.prescriptionImageSource !== undefined &&
+                    this.state.prescriptionImageSource.uri !== undefined
                       ? strings('payment.updatePrescription')
                       : strings('payment.addPrescription')
                   }
@@ -295,17 +302,7 @@ class PaymentContainer extends React.PureComponent {
 
   /** BUTTON EVENTS */
   buttonAddPrescriptionPressed = () => {
-    ImagePicker.openPicker({
-      width: 300,
-      height: 400,
-      cropping: true,
-    })
-      .then((image) => {
-        this.onImageSelectionHandler(image?.path, 'done');
-      })
-      .catch((error) => {
-        this.onImageSelectionHandler(error, 'error');
-      });
+    launchImageLibrary(options, this.onImageSelectionHandler);
   };
   //#endregion
 
@@ -314,12 +311,16 @@ class PaymentContainer extends React.PureComponent {
    *
    * @param {The image response received from image picker} response
    */
-
-  onImageSelectionHandler = (PathOrError, Check) => {
-    if (Check == 'done') {
-      this.setState({prescriptionImageSource: PathOrError});
+  onImageSelectionHandler = (response) => {
+    if (response.didCancel) {
+      // debugLog('User cancelled image picker');
+    } else if (response.error) {
+      // debugLog('ImagePicker Error: ', response.error);
+      showDialogue(response.error + '');
+    } else if (response.customButton) {
+      // debugLog('User tapped custom button: ', response.customButton);
     } else {
-      showDialogue(PathOrError + '');
+      this.setState({prescriptionImageSource: response});
     }
   };
 }
