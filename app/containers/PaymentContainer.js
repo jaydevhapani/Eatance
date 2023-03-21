@@ -26,18 +26,12 @@ import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
 const options = {
-  title: '',
-  takePhotoButtonTitle: strings('generalNew.capturePhoto'),
-  chooseFromLibraryButtonTitle: strings('generalNew.selectFromLibrary'),
-  cancelButtonTitle: strings('buttonTitles.cancel'),
-  quality: 1.0,
-  maxWidth: 500,
-  maxHeight: 500,
+  noData: true,
+  title: 'Take Picture',
+  quality: 0.5,
   storageOptions: {
     skipBackup: true,
     path: 'images',
-    cameraRoll: true,
-    waitUntilSaved: true,
   },
 };
 

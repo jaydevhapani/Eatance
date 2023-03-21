@@ -16,18 +16,12 @@ export default class EDProfilePicture extends Component {
     super(props);
 
     this.options = {
-      title: strings('generalNew.selectAvatar'),
-      takePhotoButtonTitle: strings('generalNew.capturePhoto'),
-      chooseFromLibraryButtonTitle: strings('generalNew.selectFromLibrary'),
-      cancelButtonTitle: strings('buttonTitles.cancel'),
-      quality: 1.0,
-      maxWidth: 500,
-      maxHeight: 500,
+      noData: true,
+      title: 'Take Picture',
+      quality: 0.5,
       storageOptions: {
         skipBackup: true,
         path: 'images',
-        cameraRoll: true,
-        waitUntilSaved: true,
       },
     };
   }
