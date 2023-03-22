@@ -2,7 +2,7 @@
 
 const Assets = {
   bgHome: require('./image/bg_splash.png'),
-  logo: require('../assets/image/logo.png'),
+  logo: require('../assets/image/logobig.png'),
   driver: require('../assets/image/driver.png'),
   bg_login: require('../assets/image/bg_login.png'),
   confirm_thumb: require('../assets/image/confirm_thumb.png'),
@@ -58,7 +58,6 @@ export default Assets;
 //   contactus_deselect: require('../assets/image/contactus_deselected.png'),
 //   signout_deselect: require('../assets/image/signout_deselected.png'),
 
-
 //   delete_cart: require('../assets/image/delete.png'),
 //   ic_close: require('../assets/image/ic_close.png'),
 //   confirm_thumb: require('../assets/image/confirm_thumb.png'),
@@ -73,7 +72,6 @@ export default Assets;
 //   tick: require('../assets/image/tick.png'),
 //   camera_white: require('../assets/image/camera_white.png'),
 //   thankYou_Background: require('../assets/image/thankYou_Background.png'),
-
 
 //   img_showeye: require('../assets/image/view.png'),
 //   img_hideeye: require('../assets/image/hide.png'),

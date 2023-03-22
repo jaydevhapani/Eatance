@@ -447,7 +447,7 @@ class StoresListContainer extends React.Component {
             latitude: this.props.currentLocation.latitude,
             longitude: this.props.currentLocation.longitude,
           };
-          console.log("objGetStoresParama =>::: ", objGetStoresParama);
+          console.log('objGetStoresParama =>::: ', objGetStoresParama);
           if (!isForRefresh) {
             this.setState({
               isLoading: this.state.arrayStoresList === undefined,
