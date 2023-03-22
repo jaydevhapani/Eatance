@@ -27,7 +27,7 @@ import {contentOperations} from './app/redux/reducers/ContentReducer';
 import EDFloatingButton from './app/components/EDFloatingButton';
 import {floatingButtonOperations} from './app/redux/reducers/FloatingButtonReducer';
 import {filterOperations} from './app/redux/reducers/FilterReducer';
-import firebase from 'react-native-firebase';
+import firebase from '@react-native-firebase/app';
 import {strings} from './app/locales/i18n';
 
 const rootReducer = combineReducers({

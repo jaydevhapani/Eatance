@@ -38,7 +38,11 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>User lcoation for get near by store</string>
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>User lcoation for get near by store</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>User lcoation for get near by store</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Lato-Black.ttf</string>
