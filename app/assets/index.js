@@ -2,6 +2,7 @@
 
 const Assets = {
   bgHome: require('./image/bg_splash.png'),
+  bgSplash: require('./image/Epiclogo.png'),
   logo: require('../assets/image/logobig.png'),
   driver: require('../assets/image/driver.png'),
   bg_login: require('../assets/image/bg_login.png'),

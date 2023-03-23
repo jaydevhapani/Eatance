@@ -19,6 +19,7 @@ import {
   TouchableHighlight,
   StatusBar,
   Linking,
+  Image,
 } from 'react-native';
 import {
   StackActions,
@@ -188,10 +189,9 @@ class SplashContainer extends React.Component {
 
         <ImageBackground
           resizeMode={'cover'}
-          style={{flex: 1, height: Metrics.actualScreenheight}}
-          source={Assets.bgHome}
+          style={{height: Metrics.actualScreenheight / 2}}
+          source={Assets.bgSplash}
         />
-
         <Animated.View
           style={[
             styles.subView,
@@ -212,6 +212,8 @@ class SplashContainer extends React.Component {
               onPress={this._onPressSkip}
               isTransparent={true}
               label={strings('splash.skip')}
+              style={styles.SkipButton}
+              textStyle={{color: EDColors.black}}
             />
 
             <EDRTLView
@@ -220,10 +222,15 @@ class SplashContainer extends React.Component {
                 marginTop: 25,
                 alignItems: 'center',
               }}>
-              <EDRTLText title={strings('splash.noAccount')} />
+              <EDRTLText
+                title={strings('splash.noAccount')}
+                style={styles.TextStyle1}
+              />
               <EDUnderlineButton
                 onPress={this._onPressSignUp}
                 label={strings('splash.signUp')}
+                textStyle={styles.TextStyle}
+                buttonStyle={{borderBottomColor: EDColors.black}}
               />
             </EDRTLView>
           </View>
@@ -415,6 +422,16 @@ var styles = StyleSheet.create({
     left: 0,
     right: 0,
     height: Metrics.screenHeight * 0.5,
+  },
+  TextStyle: {
+    color: 'blue',
+    fontWeight: '600',
+  },
+  TextStyle1: {
+    color: EDColors.black,
+  },
+  SkipButton: {
+    borderColor: EDColors.black,
   },
 });
 //#endregion

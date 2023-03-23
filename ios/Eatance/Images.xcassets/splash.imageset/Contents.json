@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "bg_splash.png",
+      "filename" : "EpicSplash.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "bg_splash@2x.png",
+      "filename" : "EpicSplash 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "bg_splash@3x.png",
+      "filename" : "EpicSplash 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

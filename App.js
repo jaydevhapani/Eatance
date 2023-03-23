@@ -29,6 +29,7 @@ import {floatingButtonOperations} from './app/redux/reducers/FloatingButtonReduc
 import {filterOperations} from './app/redux/reducers/FilterReducer';
 import firebase from '@react-native-firebase/app';
 import {strings} from './app/locales/i18n';
+import SplashScreen from 'react-native-splash-screen';
 
 const rootReducer = combineReducers({
   userOperations: userOperations,
@@ -82,6 +83,7 @@ export default class App extends React.Component {
   }
 
   async componentDidMount() {
+    SplashScreen.hide();
     this.createNotificationListeners();
     if (Platform.OS === 'ios') {
       KeyboardManager.setEnable(true);
