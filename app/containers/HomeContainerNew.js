@@ -342,7 +342,10 @@ class HomeContainerNew extends React.PureComponent {
                     alignItems: 'center',
                     justifyContent: 'center',
                   }}>
-                  <Image source={Assets.logo} />
+                  <Image
+                    source={Assets.bgSplash}
+                    style={stylesHomeContainer.LogoImage}
+                  />
                 </View>
               </View>
             )}
@@ -1037,5 +1040,9 @@ export const stylesHomeContainer = StyleSheet.create({
     fontFamily: EDFonts.bold,
     color: EDColors.textAccount,
     paddingHorizontal: 15,
+  },
+  LogoImage: {
+    height: Metrics.screenHeight / 2.5,
+    width: Metrics.screenWidth / 1.5,
   },
 });
