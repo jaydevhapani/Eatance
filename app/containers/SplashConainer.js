@@ -202,8 +202,8 @@ class SplashContainer extends React.Component {
           ]}>
           <View style={{flex: 1, justifyContent: 'center'}}>
             <EDThemeButton
-              textStyle={{color: EDColors.black}}
-              style={{backgroundColor: EDColors.secondary}}
+              textStyle={{color: EDColors.white}}
+              style={{backgroundColor: EDColors.primary}}
               onPress={this._onPressSignIn}
               label={strings('splash.signIn')}
             />

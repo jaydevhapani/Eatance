@@ -401,13 +401,13 @@ class SignUpContainer extends React.PureComponent {
       if (isConnected) {
         let objSignUpParams = {
           FirstName: this.state.objRegistrationDetails.firstName,
-          PhoneNumber: this.state.objRegistrationDetails.mobile,
-          Password: this.state.objRegistrationDetails.password,
-          LastName: this.state.objRegistrationDetails.lastName,
           Email: this.state.objRegistrationDetails.email,
+          Password: this.state.objRegistrationDetails.password,
           image: this.avatarSource,
-          language_slug: this.props.lan,
-          date_of_birth: this.state.objRegistrationDetails.date_of_birth,
+          PhoneNumber: this.state.objRegistrationDetails.mobile,
+          LastName: this.state.objRegistrationDetails.lastName,
+          // language_slug: this.props.lan,
+          // date_of_birth: this.state.objRegistrationDetails.date_of_birth,
         };
         this.setState({isLoading: true});
         signUpUser(

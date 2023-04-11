@@ -2,45 +2,43 @@
 /* eslint-disable prettier/prettier */
 import Moment from 'moment';
 import I18n from 'react-native-i18n';
-import { strings } from '../locales/i18n';
-import currencyFormatter from 'currency-formatter'
+import {strings} from '../locales/i18n';
+import currencyFormatter from 'currency-formatter';
 
 // API URL CONSTANTS
-export const BASE_URL = 'https://demo.eatanceapp.com/liquorapp/v2/api/';
+export const BASE_URL = 'https://epicwinesandspirits.africa/v2/Api/';
 
-
-export const REGISTRATION_URL = BASE_URL + 'user-registration';
-export const GET_STORES = BASE_URL + 'store-list';
-export const LOGIN_URL = BASE_URL + 'user-login';
+export const REGISTRATION_URL = BASE_URL + 'user_registration';
+export const GET_STORES = BASE_URL + 'store_list';
+export const LOGIN_URL = BASE_URL + 'user_login';
 export const LOGOUT_URL = BASE_URL + 'logout';
-export const CHECK_DRIVER_AVAILABILITY_URL = BASE_URL + 'check-driver-availability';
-export const ADD_TO_CART = BASE_URL + 'add-to-cart';
-export const GET_NOTIFICATION = BASE_URL + 'notification-list';
-export const GET_BRANDS = BASE_URL + 'brands-with-pagination-list';
-export const GET_CATEGORIES = BASE_URL + 'categories-with-pagination-list';
-export const GET_PRODUCTS = BASE_URL + 'products-list';
-export const GET_FILTER_VALUES = BASE_URL + 'filter-values';
-export const ADD_REVIEW = BASE_URL + 'add-review';
-export const GET_REVIEW = BASE_URL + 'reviews-with-pagination-list';
-export const ADD_ORDER = BASE_URL + 'add-order';
-export const CMS_PAGE = BASE_URL + 'cms-pages';
-export const PROMO_CODE_LIST = BASE_URL + 'coupon-list';
-export const GET_HOME_DATA = BASE_URL + 'home-page-details';
-export const ADD_ADDRESS = BASE_URL + 'add-address';
-export const GET_ADDRESS = BASE_URL + 'user-address';
-export const DELETE_ADDRESS = BASE_URL + 'delete-address';
-export const UPDATE_PROFILE = BASE_URL + 'user-edit-profile';
-export const RESET_PASSWORD_REQ_URL = BASE_URL + 'user-change-password';
-export const ORDER_LISTING = BASE_URL + 'order-detail';
-export const FORGOT_PASSWORD = BASE_URL + 'user_forgot-password';
+export const CHECK_DRIVER_AVAILABILITY_URL =
+  BASE_URL + 'check_driver_availability';
+export const ADD_TO_CART = BASE_URL + 'add_to_cart';
+export const GET_NOTIFICATION = BASE_URL + 'notification_list';
+export const GET_BRANDS = BASE_URL + 'brands_with_pagination_list';
+export const GET_CATEGORIES = BASE_URL + 'categories_with_pagination_list';
+export const GET_PRODUCTS = BASE_URL + 'products_list';
+export const GET_FILTER_VALUES = BASE_URL + 'filter_values';
+export const ADD_REVIEW = BASE_URL + 'add_review';
+export const GET_REVIEW = BASE_URL + 'reviews_with_pagination_list';
+export const ADD_ORDER = BASE_URL + 'add_order';
+export const CMS_PAGE = BASE_URL + 'cms_pages';
+export const PROMO_CODE_LIST = BASE_URL + 'coupon_list';
+export const GET_HOME_DATA = BASE_URL + 'home_page_details';
+export const ADD_ADDRESS = BASE_URL + 'add_address';
+export const GET_ADDRESS = BASE_URL + 'user_address';
+export const DELETE_ADDRESS = BASE_URL + 'delete_address';
+export const UPDATE_PROFILE = BASE_URL + 'user_edit_profile';
+export const RESET_PASSWORD_REQ_URL = BASE_URL + 'user_change_password';
+export const ORDER_LISTING = BASE_URL + 'order_detail';
+export const FORGOT_PASSWORD = BASE_URL + 'user_forgot_password';
 export const CHANGE_TOKEN = BASE_URL + 'change_token';
-export const USER_LANGUAGE = BASE_URL + 'user-language';
-export const DRIVER_TRACKING = BASE_URL + 'driver-tracking';
+export const USER_LANGUAGE = BASE_URL + 'user_language';
+export const DRIVER_TRACKING = BASE_URL + 'driver_tracking';
 export const UPDATE_TERMS_AND_CONDITIONS_STATUS = BASE_URL + 'user_tnc_status';
 export const ADD_ORDER_REVIEW = BASE_URL + 'add_OrderReview';
-export const CHECK_ORDER_DELIVERY = BASE_URL + 'checkOrderDelivery';
-
-
+export const CHECK_ORDER_DELIVERY = BASE_URL + 'check_order_delivered';
 
 export const INR_SIGN = '$';
 
@@ -65,11 +63,10 @@ export const RequestKeys = {
 
 // LANGUAGE CONSTANTS
 export const arrayLanguages = [
-  { code: 'en', title: 'English', key: 'en' },
+  {code: 'en', title: 'English', key: 'en'},
   // { code: 'ar', title: 'عربى', key: 'ar' },
-  { code: 'fr', title: 'Français', key: 'fr' },
+  {code: 'fr', title: 'Français', key: 'fr'},
 ];
-
 
 // STORAGE CONSTANTS
 export const StorageKeys = {
@@ -96,16 +93,15 @@ export const PRIVACY_POLICY = 'privacy-policy';
 
 export function funGetFrench_Curr(x, y, lan) {
   // var xValue = parseInt(x) * parseInt(y)
-  let decimal
-  let thousand
+  let decimal;
+  let thousand;
 
   if (lan == 'fr') {
-    decimal = ','
-    thousand = '.'
-  }
-  else {
-    decimal = '.'
-    thousand = ','
+    decimal = ',';
+    thousand = '.';
+  } else {
+    decimal = '.';
+    thousand = ',';
   }
   // return xValue
   if (y === undefined) {
@@ -117,7 +113,6 @@ export function funGetFrench_Curr(x, y, lan) {
       precision: 2,
     });
   } else {
-
     var xValue = parseFloat(x) * parseFloat(y);
 
     return currencyFormatter.format(xValue, {
@@ -180,19 +175,20 @@ export const TextFieldTypes = {
   countryPicker: 'countryPicker',
 };
 
-export const funGetDate = date => {
+export const funGetDate = (date) => {
   var d = new Date(date);
-  return Moment(d).format("DD-MM-YYYY");
+  return Moment(d).format('DD-MM-YYYY');
 };
 
-import { Dimensions, Platform } from 'react-native';
-const { width, height } = Dimensions.get('window');
+import {Dimensions, Platform} from 'react-native';
+const {width, height} = Dimensions.get('window');
 
 const guidelineBaseWidth = 360;
 const guidelineBaseHeight = 760;
-const scale = size => width / guidelineBaseWidth * size;
-const verticalScale = size => height / guidelineBaseHeight * size;
-const moderateScale = (size, factor = 0.5) => size + (scale(size) - size) * factor;
+const scale = (size) => (width / guidelineBaseWidth) * size;
+const verticalScale = (size) => (height / guidelineBaseHeight) * size;
+const moderateScale = (size, factor = 0.5) =>
+  size + (scale(size) - size) * factor;
 
 // CHANGE FONT SIZE IN ANDROID
 export function getProportionalFontSize(baseFontSize) {
@@ -202,40 +198,46 @@ export function getProportionalFontSize(baseFontSize) {
   // }
   var fontSizeToReturnModerate = moderateScale(intialFontSize);
   var fontSizeToReturnVertical = verticalScale(intialFontSize);
-  return Platform.OS == 'ios' ? fontSizeToReturnModerate : fontSizeToReturnVertical;
-
-
-
+  return Platform.OS == 'ios'
+    ? fontSizeToReturnModerate
+    : fontSizeToReturnVertical;
 }
 
 export function isFilterApplied(objFilter) {
   if (objFilter === null || objFilter === undefined) {
-    return false
+    return false;
   }
 
-
   if (objFilter.shouldShowProductsWithPrescription) {
-    return true
+    return true;
   }
 
   if (objFilter.shouldShowProductsInStock) {
-    return true
+    return true;
   }
 
-  if (objFilter.arraySelectedBrandIDs !== undefined && (objFilter.arraySelectedBrandIDs instanceof Array) && objFilter.arraySelectedBrandIDs.length > 0) {
-    return true
+  if (
+    objFilter.arraySelectedBrandIDs !== undefined &&
+    objFilter.arraySelectedBrandIDs instanceof Array &&
+    objFilter.arraySelectedBrandIDs.length > 0
+  ) {
+    return true;
   }
 
-  if (objFilter.arraySelectedCategoryIDs !== undefined && (objFilter.arraySelectedCategoryIDs instanceof Array) && objFilter.arraySelectedCategoryIDs.length > 0) {
-    return true
+  if (
+    objFilter.arraySelectedCategoryIDs !== undefined &&
+    objFilter.arraySelectedCategoryIDs instanceof Array &&
+    objFilter.arraySelectedCategoryIDs.length > 0
+  ) {
+    return true;
   }
 
-  return false
+  return false;
 }
 
 export const ProductsListType = {
   category: 'Category',
   brands: 'Brands',
   featuredProducts: 'Featured Products',
-  other: 'Other'
-}
+  other: 'Other',
+};
