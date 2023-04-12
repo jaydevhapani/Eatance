@@ -209,14 +209,14 @@ class HomeContainerNew extends React.PureComponent {
         }
         left={'menu'}
         onLeft={this.buttonMenuPressed}
-        right={
-          this.strOnScreenTitle !== undefined &&
-          this.strOnScreenTitle.trim().length > 0
-            ? undefined
-            : this.state.isSearchVisible
-            ? 'close'
-            : 'search'
-        }
+        // right={
+        //   this.strOnScreenTitle !== undefined &&
+        //   this.strOnScreenTitle.trim().length > 0
+        //     ? undefined
+        //     : this.state.isSearchVisible
+        //     ? 'close'
+        //     : 'search'
+        // }
         onRight={this.buttonSearchPressed}
         onConnectionChangeHandler={this.onConnectionChangeHandler}>
         {/* SCREEN FOCUS EVENT */}
@@ -257,7 +257,7 @@ class HomeContainerNew extends React.PureComponent {
                 pointerEvents={this.state.isSearchVisible ? 'none' : 'auto'}
                 style={{flex: 1}}>
                 {/* SWITCH STORE OPTION */}
-                {this.storesCount > 1 ? (
+                {/* {this.storesCount > 1 ? (
                   <TouchableOpacity
                     activeOpacity={0.8}
                     onPress={this.onSwitchStoreHandler}
@@ -284,9 +284,11 @@ class HomeContainerNew extends React.PureComponent {
                       />
                     </EDRTLView>
                   </TouchableOpacity>
-                ) : null}
+                ) : null} */}
                 {/* BANNER IMAGES */}
-                <BannerImages images={this.arrayBannerImages} />
+                <View style={{marginTop: 0}}>
+                  <BannerImages images={this.arrayBannerImages} />
+                </View>
 
                 {/* STORE INFO */}
                 <StoreOverview storeDetails={this.objStoreDetails} />
@@ -657,6 +659,8 @@ class HomeContainerNew extends React.PureComponent {
       shouldShowProductsInStock: false,
       shouldShowFeaturedProducts: false,
     });
+    console.log('TESTING PRODUCTLIST PROPS :::: ', ProductsListType.category);
+    console.log('TESTING PRODUCTLIST selectedCategory :::: ', selectedCategory);
     this.props.navigation.navigate('productsList', {
       listType: ProductsListType.category,
       entityFromHomeScreen: selectedCategory,
@@ -870,7 +874,8 @@ class HomeContainerNew extends React.PureComponent {
       if (isConnected) {
         let objHomeParams = {
           language_slug: this.props.lan,
-          store_id: this.props.objStoreDetails.store_id,
+          // store_id: this.props.objStoreDetails.store_id,
+          store_id: '43',
         };
         this.setState({isLoading: !isFromSideMenu});
         fetchHomeScreenDetails(

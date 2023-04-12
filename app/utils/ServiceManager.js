@@ -35,6 +35,7 @@ import {
   UPDATE_TERMS_AND_CONDITIONS_STATUS,
   ADD_ORDER_REVIEW,
   CHECK_ORDER_DELIVERY,
+  WHATSP_NUMBER_API,
 } from '../utils/EDConstants';
 import {Platform} from 'react-native';
 import {strings} from '../locales/i18n';
@@ -1158,3 +1159,23 @@ const errorHandler = (response) => {
     return Promise.reject(error);
   }
 };
+
+//GET_WHATSPPNUMBER_FROM_API
+export async function GET_WHATSP_NUMBER() {
+  return await fetch(WHATSP_NUMBER_API, {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((respose) => {
+      return respose.json();
+    })
+    .then((Data) => {
+      return Data;
+    })
+    .catch((error) => {
+      return error;
+    });
+}

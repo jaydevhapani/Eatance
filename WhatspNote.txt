@@ -1,0 +1,1 @@
+Linking.openURL('whatsapp://send?text=hello&phone=0634443439');

@@ -385,5 +385,8 @@
         "driverName": "Driver Name - ",
         "emptyOrderRating": "Please rate the Order",
         "emptyDriverRating": "Please rate the order and driver"
+    },
+    "WhatspAppError" : {
+        "ErrorMessage" : "WhatspApp is not avilable in your device"
     }
 }

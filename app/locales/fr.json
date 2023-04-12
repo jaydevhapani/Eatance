@@ -385,5 +385,8 @@
         "driverName": "Nom du conducteur - ",
         "emptyOrderRating": "Veuillez évaluer la commande",
         "emptyDriverRating": "Veuillez noter la commande et le chauffeur"
+    },
+    "WhatspAppError" : {
+        "ErrorMessage" : "WhatspApp is not avilable in your device"
     }
 }

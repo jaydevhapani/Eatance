@@ -88,7 +88,7 @@ class LoginContainer extends React.Component {
           {this.renderTermsAndConditionsDialogue()}
 
           <EDThemeHeader
-            onLeftButtonPress={this.buttonBackPressed}
+            onLeftButtonPress={() => this.buttonBackPressed()}
             title={strings('login.signIn')}
           />
 
@@ -289,7 +289,7 @@ class LoginContainer extends React.Component {
       this.props.navigation.dispatch(
         StackActions.reset({
           index: 0,
-          actions: [NavigationActions.navigate({routeName: 'storesList'})],
+          actions: [NavigationActions.navigate({routeName: 'main'})],
         }),
       );
     }
@@ -433,9 +433,10 @@ class LoginContainer extends React.Component {
     // this.props.navigation.navigate('register');
   };
 
-  buttonBackPressed = () => {
+  buttonBackPressed() {
+    console.log('kdbasjkdhbajksdhas');
     this.props.navigation.goBack();
-  };
+  }
   //#endregion
 
   onDidFocusLoginContainer = () => {

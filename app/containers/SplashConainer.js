@@ -189,7 +189,10 @@ class SplashContainer extends React.Component {
 
         <ImageBackground
           resizeMode={'cover'}
-          style={{height: Metrics.actualScreenheight / 2}}
+          style={{
+            height: Metrics.actualScreenheight / 2,
+            top: Metrics.actualScreenheight / 10,
+          }}
           source={Assets.bgSplash}
         />
         <Animated.View
@@ -283,17 +286,18 @@ class SplashContainer extends React.Component {
       NavigationService.navigateToOrderPage('notifications');
     } else {
       // NAVIGATE TO HOME SCREEN
-      setTimeout(() => {
-        this.props.navigation.dispatch(
-          StackActions.reset({
-            index: 0,
-            actions: [
-              NavigationActions.navigate({routeName: 'storesList'}),
-              // NavigationActions.navigate({ routeName: isRTLCheck() ? 'mainRTL' : 'main' })
-            ],
-          }),
-        );
-      }, 3000);
+      this.props.navigation.dispatch(
+        StackActions.reset({
+          index: 0,
+          actions: [
+            // NavigationActions.navigate({routeName: 'storesList'}),
+            NavigationActions.navigate({
+              routeName: isRTLCheck() ? 'mainRTL' : 'main',
+            }),
+            // NavigationActions.navigate({ routeName: isRTLCheck() ? 'mainRTL' : 'main' })
+          ],
+        }),
+      );
     }
   };
 
@@ -370,7 +374,11 @@ class SplashContainer extends React.Component {
     this.props.navigation.dispatch(
       StackActions.reset({
         index: 0,
-        actions: [NavigationActions.navigate({routeName: 'storesList'})],
+        actions: [
+          NavigationActions.navigate({
+            routeName: isRTLCheck() ? 'mainRTL' : 'main',
+          }),
+        ],
       }),
     );
 

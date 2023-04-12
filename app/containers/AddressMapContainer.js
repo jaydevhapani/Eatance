@@ -6,30 +6,35 @@ import {
   Dimensions,
   AppState,
   Platform,
-  TouchableOpacity
+  TouchableOpacity,
 } from 'react-native';
 import Metrics from '../utils/metrics';
-import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
-import { getCurrentLocation, getAddress } from '../utils/LocationServiceManager';
-import { addAddress } from '../utils/ServiceManager';
+import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
+import {getCurrentLocation, getAddress} from '../utils/LocationServiceManager';
+import {addAddress} from '../utils/ServiceManager';
 import EDRTLTextInput from '../components/EDRTLTextInput';
-import { TextFieldTypes, debugLog, isRTLCheck, getProportionalFontSize } from '../utils/EDConstants';
-import { strings } from '../locales/i18n';
-import { EDColors } from '../utils/EDColors';
+import {
+  TextFieldTypes,
+  debugLog,
+  isRTLCheck,
+  getProportionalFontSize,
+} from '../utils/EDConstants';
+import {strings} from '../locales/i18n';
+import {EDColors} from '../utils/EDColors';
 import EDButton from '../components/EDButton';
-import { showDialogue, showNoInternetAlert } from '../utils/EDAlert';
-import { netStatus } from '../utils/NetworkStatusConnection';
-import { connect } from 'react-redux';
+import {showDialogue, showNoInternetAlert} from '../utils/EDAlert';
+import {netStatus} from '../utils/NetworkStatusConnection';
+import {connect} from 'react-redux';
 import BaseContainer from './BaseContainer';
 import Assets from '../assets';
-import { NavigationEvents } from 'react-navigation';
-import { changeCartButtonVisibility } from '../redux/actions/FloatingButton';
+import {NavigationEvents} from 'react-navigation';
+import {changeCartButtonVisibility} from '../redux/actions/FloatingButton';
 import Validations from '../utils/Validations';
-import { Icon } from 'react-native-elements';
+import {Icon} from 'react-native-elements';
 import EDRTLText from '../components/EDRTLText';
-import { EDFonts } from '../utils/EDFontConstants';
+import {EDFonts} from '../utils/EDFontConstants';
 
-let { width, height } = Dimensions.get('window');
+let {width, height} = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
 const LATITUDE_DELTA = 0.0022;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
@@ -45,14 +50,10 @@ class AddressMapContainer extends React.Component {
     this.validationsHelper = new Validations();
   }
 
-
   toggleMain = () => {
-    if (this.state.is_main == "1")
-      this.setState({ is_main: "0" })
-    else
-      this.setState({ is_main: "1" })
-
-  }
+    if (this.state.is_main == '1') this.setState({is_main: '0'});
+    else this.setState({is_main: '1'});
+  };
 
   render() {
     return (
@@ -75,7 +76,7 @@ class AddressMapContainer extends React.Component {
                 zoom={100}
                 style={style.mapView}
                 region={this.state.region}
-                onRegionChangeComplete={region => this.setState({ region })}
+                onRegionChangeComplete={(region) => this.setState({region})}
                 onPress={this.onMapChangeHandler}>
                 <Marker
                   coordinate={{
@@ -96,9 +97,9 @@ class AddressMapContainer extends React.Component {
               errorFromScreen={
                 this.state.shouldPerformValidation
                   ? this.validationsHelper.checkForEmpty(
-                    this.state.objRegistrationDetails.strAddress1,
-                    strings('addressNew.emptyAddressLine1'),
-                  )
+                      this.state.objRegistrationDetails.strAddress1,
+                      strings('addressNew.emptyAddressLine1'),
+                    )
                   : ''
               }
             />
@@ -115,15 +116,34 @@ class AddressMapContainer extends React.Component {
               errorFromScreen={
                 this.state.shouldPerformValidation
                   ? this.validationsHelper.checkForEmpty(
-                    this.state.strAddress2,
-                    strings('addressNew.emptyAddressLine2'),
-                  )
+                      this.state.strAddress2,
+                      strings('addressNew.emptyAddressLine2'),
+                    )
                   : ''
               }
             />
-            <TouchableOpacity disabled={this.state.is_default} style={{ alignItems: "center", marginVertical: 10, marginHorizontal: 20, flexDirection: isRTLCheck() ? "row-reverse" : 'row', }} onPress={this.toggleMain}>
-              <Icon name={this.state.is_main == "1" ? "check-box" : "check-box-outline-blank"} color={EDColors.primary} size={23} />
-              <EDRTLText title={strings("addressNew.default")} style={style.default} />
+            <TouchableOpacity
+              disabled={this.state.is_default}
+              style={{
+                alignItems: 'center',
+                marginVertical: 10,
+                marginHorizontal: 20,
+                flexDirection: isRTLCheck() ? 'row-reverse' : 'row',
+              }}
+              onPress={this.toggleMain}>
+              <Icon
+                name={
+                  this.state.is_main == '1'
+                    ? 'check-box'
+                    : 'check-box-outline-blank'
+                }
+                color={EDColors.primary}
+                size={23}
+              />
+              <EDRTLText
+                title={strings('addressNew.default')}
+                style={style.default}
+              />
             </TouchableOpacity>
 
             <EDButton
@@ -152,20 +172,23 @@ class AddressMapContainer extends React.Component {
       latitudeDelta: LATITUDE_DELTA,
       longitudeDelta: LONGITUDE_DELTA,
     },
-    objRegistrationDetails: { strAddress1: '' },
+    objRegistrationDetails: {strAddress1: ''},
     strAddress2: '',
     appState: AppState.currentState,
     shouldPerformValidation: false,
-    is_main: "0",
+    is_main: '0',
     is_default: false,
-    totalCount: this.props.navigation.state.params.totalCount
+    totalCount: this.props.navigation.state.params.totalCount,
   };
   //#endregion
 
   componentDidMount() {
-    debugLog("TOTAL COUNT :::::", this.props.navigation.state.params.totalCount)
+    debugLog(
+      'TOTAL COUNT :::::',
+      this.props.navigation.state.params.totalCount,
+    );
     if (this.state.totalCount == 0)
-      this.setState({ is_main: "1", is_default: true })
+      this.setState({is_main: '1', is_default: true});
     AppState.addEventListener('change', this._handleAppStateChange);
     this.viewUpdate();
   }
@@ -173,7 +196,7 @@ class AddressMapContainer extends React.Component {
     AppState.removeEventListener('change', this._handleAppStateChange);
   }
 
-  _handleAppStateChange = nextAppState => {
+  _handleAppStateChange = (nextAppState) => {
     if (
       this.state.appState.match(/inactive|background/) &&
       nextAppState === 'active'
@@ -182,7 +205,7 @@ class AddressMapContainer extends React.Component {
       debugLog('get back result successs');
       this.viewUpdate();
     }
-    this.setState({ appState: nextAppState });
+    this.setState({appState: nextAppState});
   };
 
   viewUpdate = () => {
@@ -197,7 +220,7 @@ class AddressMapContainer extends React.Component {
       this.zipCode = addressData.zipCode;
       this.address_id = addressData.addressId;
       this.state.objRegistrationDetails.strAddress1 = addressData.addressLine1;
-      this.state.is_main = addressData.is_main
+      this.state.is_main = addressData.is_main;
 
       this.setState({
         region: {
@@ -222,16 +245,16 @@ class AddressMapContainer extends React.Component {
 
   textFieldTextDidChangeHandler = (value, identifier) => {
     if (this.state.shouldPerformValidation) {
-      this.setState({ shouldPerformValidation: false });
+      this.setState({shouldPerformValidation: false});
     }
     this.state.objRegistrationDetails[identifier] = value.trim();
   };
 
-  onFailureGetAddress = onFailure => {
+  onFailureGetAddress = (onFailure) => {
     debugLog('Address Fail:::::::: ', onFailure);
   };
 
-  onMapChangeHandler = e => {
+  onMapChangeHandler = (e) => {
     debugLog('coordinat ::::::::: ', e.nativeEvent);
     this.setState({
       region: {
@@ -247,7 +270,7 @@ class AddressMapContainer extends React.Component {
     getAddress(
       e.nativeEvent.coordinate.latitude,
       e.nativeEvent.coordinate.longitude,
-      onSucces => {
+      (onSucces) => {
         debugLog('address Location :::::::::: ', onSucces);
         this.city = onSucces.city;
         this.zipCode = onSucces.zipCode;
@@ -268,7 +291,7 @@ class AddressMapContainer extends React.Component {
    */
 
   onAddressSave = () => {
-    this.setState({ shouldPerformValidation: true });
+    this.setState({shouldPerformValidation: true});
     if (
       this.state.strAddress2.trim() !== '' &&
       this.state.objRegistrationDetails.strAddress1.trim() !== ''
@@ -283,24 +306,24 @@ class AddressMapContainer extends React.Component {
    *
    * @param {The success response object} objSuccess
    */
-  onaddAddressSuccess = objSuccess => {
+  onaddAddressSuccess = (objSuccess) => {
     debugLog('OBJ SUCCESS ADDRESS :: ' + JSON.stringify(objSuccess));
     this.props.navigation.goBack();
-    this.setState({ isLoading: false });
+    this.setState({isLoading: false});
   };
 
   /**
    *
    * @param {The success response object} objSuccess
    */
-  onaddAddressFailure = objFailure => {
-    this.setState({ isLoading: false });
+  onaddAddressFailure = (objFailure) => {
+    this.setState({isLoading: false});
     debugLog('OBJ FAILURE ADDRESS :: ', objFailure);
     showDialogue(objFailure.message);
   };
 
   callAddAddressAPI = () => {
-    netStatus(isConnected => {
+    netStatus((isConnected) => {
       if (isConnected) {
         let objaddAddressParams = {
           language_slug: this.props.lan,
@@ -313,9 +336,8 @@ class AddressMapContainer extends React.Component {
           user_id: this.props.UserID,
           address_id: this.address_id,
           is_main: this.state.is_main,
-
         };
-        this.setState({ isLoading: true });
+        this.setState({isLoading: true});
         addAddress(
           objaddAddressParams,
           this.onaddAddressSuccess,
@@ -329,11 +351,13 @@ class AddressMapContainer extends React.Component {
   };
 
   getCurrentAddressLocation = () => {
+    console.log('LATITUDE_DELTA ::: ', LATITUDE_DELTA);
+    console.log('LONGITUDE_DELTA ::: ', LONGITUDE_DELTA);
     this.setState({
       isLoading: true,
     });
     getCurrentLocation(
-      onSucces => {
+      (onSucces) => {
         this.city = onSucces.address.city;
         this.zipCode = onSucces.address.zipCode;
         this.setState({
@@ -349,11 +373,11 @@ class AddressMapContainer extends React.Component {
           isLoading: false,
         });
       },
-      onFailure => {
+      (onFailure) => {
         debugLog('getLocation Fail ::::::::::: ', onFailure);
-        this.setState({ isLoading: false });
+        this.setState({isLoading: false});
         // showDialogue(onFailure.message);
-        showDialogue(strings("addressNew.turnOnGps"))
+        showDialogue(strings('addressNew.turnOnGps'));
       },
       this.props.googleMapsAPIKey,
     );
@@ -368,7 +392,7 @@ class AddressMapContainer extends React.Component {
 }
 
 export default connect(
-  state => {
+  (state) => {
     return {
       UserID: state.userOperations.userDetails.UserID,
       lan: state.userOperations.lan,
@@ -376,9 +400,9 @@ export default connect(
       googleMapsAPIKey: state.contentOperations.googleMapsAPIKey || '',
     };
   },
-  dispatch => {
+  (dispatch) => {
     return {
-      changeCartButtonVisibility: data => {
+      changeCartButtonVisibility: (data) => {
         dispatch(changeCartButtonVisibility(data));
       },
     };
@@ -404,12 +428,12 @@ const style = StyleSheet.create({
     alignSelf: 'center',
     marginTop: 10,
   },
-  btnText: { textAlign: 'center' },
+  btnText: {textAlign: 'center'},
   default: {
     fontFamily: EDFonts.regular,
     fontSize: getProportionalFontSize(14),
     color: EDColors.primary,
     flex: 1,
-    marginHorizontal: 5
-  }
+    marginHorizontal: 5,
+  },
 });

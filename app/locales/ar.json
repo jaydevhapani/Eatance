@@ -337,5 +337,8 @@
     },
     "order": {
         "view": "مشاهدة الطلب"
+    },
+    "WhatspAppError" : {
+        "ErrorMessage" : "WhatspApp is not avilable in your device"
     }
 }
