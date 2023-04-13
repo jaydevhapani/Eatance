@@ -55,7 +55,7 @@ class AddressListContainer extends React.PureComponent {
     // SELECT PAYMENT OPTION
     this.paymentArray = [
       {
-        label: strings('payment.cashOn'),
+        label: 'PayPal Payment Method',
         value: 0,
       },
     ];
@@ -249,7 +249,7 @@ class AddressListContainer extends React.PureComponent {
 
   onOrderDeliverySuccess = (objSuccess) => {
     debugLog('OBJ SUCCESS DRIVER AVAILABLITY:: ' + JSON.stringify(objSuccess));
-    if (objSuccess.data.status === RESPONSE_SUCCESS) {
+    if (objSuccess?.data?.status === RESPONSE_SUCCESS) {
       this.props.navigation.navigate('checkout', {
         delivery_status: 'Delivery',
         latitude: this.arrayAddresses[this.state.selectedIndex].latitude,
@@ -266,7 +266,7 @@ class AddressListContainer extends React.PureComponent {
       // });
     } else {
       debugLog('Fail response :::::::::: ', objSuccess);
-      showDialogue(objSuccess.data.message);
+      showDialogue(objSuccess?.message);
     }
     this.setState({isLoading: false});
   };
@@ -294,7 +294,8 @@ class AddressListContainer extends React.PureComponent {
 
   onOrderDeliveryFailure = (objFailure) => {
     this.setState({isLoading: false});
-    showDialogue(objFailure.data.message);
+    console.log('CheFailer Option ::: ', objFailure);
+    showDialogue(objFailure.message);
   };
 
   onAddressDeleteFailure = () => {
@@ -363,18 +364,14 @@ class AddressListContainer extends React.PureComponent {
     netStatus((isConnected) => {
       if (isConnected) {
         let objcheckDeliveryListParams = {
-          language_slug: this.props.lan,
           user_id: this.props.UserID,
-          order_delivery: 'Delivery',
-          users_latitude:
-            this.arrayAddresses[this.state.selectedIndex].latitude,
-          users_longitude:
-            this.arrayAddresses[this.state.selectedIndex].longitude,
           store_id: this.props.objStoreDetails.store_id,
-          user_km: '',
-          driver_km: '',
+          is_delivered : 1,
         };
-        console.log('ID ::: ', this.props.objStoreDetails.store_id);
+        console.log(
+          ' this.this.props.objStoreDetails ::: ',
+          objcheckDeliveryListParams
+        );
         this.setState({isLoading: true});
         checkOrderDelivery(
           objcheckDeliveryListParams,

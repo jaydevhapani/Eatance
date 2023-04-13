@@ -5,6 +5,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   BackHandler,
+  Linking,
 } from 'react-native';
 import {connect} from 'react-redux';
 import {saveCartDataInRedux, saveCartCount} from '../redux/actions/Checkout';
@@ -15,6 +16,7 @@ import {
   getProportionalFontSize,
   funGetFrench_Curr,
   STORE_ERROR,
+  RESPONSE_SUCCESS,
 } from '../utils/EDConstants';
 import {EDColors} from '../utils/EDColors';
 import Metrics from '../utils/metrics';
@@ -809,6 +811,26 @@ class CheckOutContainer extends React.PureComponent {
    */
   onAddOrderSuccess = (objSuccess) => {
     debugLog('OBJ SUCCESS ADDORDER :: ' + JSON.stringify(objSuccess));
+    if (objSuccess?.data) {
+      let {status, message, order_status, payment_link, store_detail} =
+        objSuccess?.data;
+      if (status == RESPONSE_SUCCESS) {
+        Linking.canOpenURL(payment_link)
+          .then((respose) => {
+            console.log('Yes Open It ::::: ', respose);
+            Linking.openURL(payment_link);
+          })
+          .catch((error) => showDialogue(error));
+      } else {
+        showDialogue(message);
+      }
+    } else {
+      showDialogue(objSuccess?.message);
+    }
+
+    
+    // Add this clearCartData When User done
+
     // clearCartData(
     //   () => {
     //     this.props.saveCartDataInRedux({});
