@@ -714,19 +714,11 @@ class CheckOutContainer extends React.PureComponent {
       address_id: this.props.navigation.state.params.address_id,
       subtotal: this.addToCartDict.subtotal,
       items: '',
-      coupon_id: this.addToCartDict.coupon_id,
-      coupon_type: this.addToCartDict.coupon_type,
-      coupon_amount: this.addToCartDict.coupon_amount,
       user_id: this.props.UserID,
       total: this.addToCartDict.total,
-      coupon_name: this.addToCartDict.coupon_name,
-      coupon_discount: this.addToCartDict.coupon_discount,
-      order_date: '',
       order_delivery: this.props.navigation.state.params.delivery_status,
-      language_slug: this.props.lan,
-      delivery_charge: this.delivery_charges,
-      extra_comment: '',
       store_id: this.props.cartDetail.store_id,
+      payment_option: 'paypal',
     };
 
     if (this.itemsNameArray.length > 0) {
@@ -817,21 +809,21 @@ class CheckOutContainer extends React.PureComponent {
    */
   onAddOrderSuccess = (objSuccess) => {
     debugLog('OBJ SUCCESS ADDORDER :: ' + JSON.stringify(objSuccess));
-    clearCartData(
-      () => {
-        this.props.saveCartDataInRedux({});
-        this.props.saveCartCount(0);
-        this.props.navigation.navigate('thankYou');
-        this.setState({
-          isLoading: false,
-        });
-      },
-      () => {
-        this.setState({
-          isLoading: false,
-        });
-      },
-    );
+    // clearCartData(
+    //   () => {
+    //     this.props.saveCartDataInRedux({});
+    //     this.props.saveCartCount(0);
+    //     this.props.navigation.navigate('thankYou');
+    //     this.setState({
+    //       isLoading: false,
+    //     });
+    //   },
+    //   () => {
+    //     this.setState({
+    //       isLoading: false,
+    //     });
+    //   },
+    // );
   };
 
   /**
@@ -897,9 +889,9 @@ class CheckOutContainer extends React.PureComponent {
         var objaddOrderParams = checkoutDetail;
         objaddOrderParams.items = objItems;
         objaddOrderParams.image = this.state.photoOnCakeSource;
-        objaddOrderParams.order_date = Moment(new Date()).format(
-          'DD-MM-YYYY hh:mm A',
-        );
+        // objaddOrderParams.order_date = Moment(new Date()).format(
+        //   'DD-MM-YYYY hh:mm A',
+        // );
 
         debugLog('paarms ::::::: ', JSON.stringify(objaddOrderParams));
         this.setState({isLoading: true});
