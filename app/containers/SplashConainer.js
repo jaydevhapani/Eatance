@@ -20,6 +20,7 @@ import {
   StatusBar,
   Linking,
   Image,
+  Platform,
 } from 'react-native';
 import {
   StackActions,
@@ -46,6 +47,7 @@ import {
 } from '../utils/AsyncStorageHelper';
 import {
   debugLog,
+  GOOGLE_API_KEY,
   isRTLCheck,
   NOTIFICATION_TYPE,
   ORDER_TYPE,
@@ -59,6 +61,9 @@ import NavigationService from '../../NavigationService';
 import {showDialogue} from '../utils/EDAlert';
 import EDPopupView from '../components/EDPopupView';
 import EDWebViewComponent from '../components/EDWebViewComponent';
+import {getAddress, getCurrentLocation} from '../utils/LocationServiceManager';
+import {checkLocationPermission} from '../utils/LocationServices';
+import {PERMISSIONS} from 'react-native-permissions';
 
 var redirectType = '';
 
@@ -77,13 +82,63 @@ class SplashContainer extends React.Component {
     };
   }
 
+  getCurrentAddress = (lat, long) => {
+    debugLog('LAT LONG ::::', lat, long);
+    getAddress(
+      lat,
+      long,
+      (onSuccess) => {
+        debugLog('ON SUCCESS GET ADDRESS :::::', onSuccess);
+        let addressData = {
+          latitude: lat,
+          longitude: long,
+          areaName: onSuccess.localArea,
+          address: onSuccess.strAddress,
+        };
+        this.props.saveCurrentLocation(addressData);
+      },
+      this.onFailureGetAddress,
+      GOOGLE_API_KEY,
+    );
+  };
+
+  onFailureGetAddress = (onFailure) => {
+    debugLog('Address Fail:::::::: ', onFailure);
+  };
+
+  Get_User_Current_Location() {
+    var paramPermission =
+      Platform.OS === 'ios'
+        ? PERMISSIONS.IOS.LOCATION_WHEN_IN_USE
+        : PERMISSIONS.ANDROID.ACCESS_COARSE_LOCATION;
+    checkLocationPermission(
+      paramPermission,
+      () => {
+        getCurrentLocation(
+          (onSucces) => {
+            console.log('LOCATION PERMISSION GRANTED::::::::::', onSucces);
+            this.getCurrentAddress(onSucces.latitude, onSucces.longitude);
+          },
+          () => {
+            debugLog('UNABLE TO FETCH CURRENT LOCATION:::::');
+          },
+          GOOGLE_API_KEY,
+        );
+      },
+      (onFailure) => {
+        debugLog('LOCATION PERMISSION NOT GRANTED ::::::', onFailure);
+      },
+    );
+  }
+
   /** COMPONENT DID MOUNT */
   componentDidMount() {
     this.props.changeCartButtonVisibility({
       shouldShowFloatingButton: false,
       currentScreen: this.props,
     });
-
+    //Get_SUer_Location
+    this.Get_User_Current_Location();
     // CHECK IS TERMS & CONDITIONS ACCEPTED
     getIsTermsAndConditionsAccepted(
       (onSuccess) => {
@@ -290,11 +345,10 @@ class SplashContainer extends React.Component {
         StackActions.reset({
           index: 0,
           actions: [
-            // NavigationActions.navigate({routeName: 'storesList'}),
-            NavigationActions.navigate({
-              routeName: isRTLCheck() ? 'mainRTL' : 'main',
-            }),
-            // NavigationActions.navigate({ routeName: isRTLCheck() ? 'mainRTL' : 'main' })
+            NavigationActions.navigate({routeName: 'storesList'}),
+            // NavigationActions.navigate({
+            //   routeName: isRTLCheck() ? 'mainRTL' : 'main',
+            // }),
           ],
         }),
       );
@@ -375,8 +429,11 @@ class SplashContainer extends React.Component {
       StackActions.reset({
         index: 0,
         actions: [
+          // NavigationActions.navigate({
+          //   routeName: isRTLCheck() ? 'mainRTL' : 'main',
+          // }),
           NavigationActions.navigate({
-            routeName: isRTLCheck() ? 'mainRTL' : 'main',
+            routeName: 'storesList',
           }),
         ],
       }),

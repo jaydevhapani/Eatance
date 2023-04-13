@@ -161,7 +161,7 @@ export default class StoreOverview extends React.PureComponent {
         if (!supported) {
           showDialogue('WhatspApp is not avilable in your device');
         } else {
-          return Linking.openURL(url);
+          return Linking.openURL(URL);
         }
       })
       .catch((err) => showDialogue('WhatspApp is not avilable in your device'));

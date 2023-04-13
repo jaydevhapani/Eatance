@@ -5,6 +5,7 @@ import {
   StyleSheet,
   View,
   Platform,
+  SafeAreaView,
 } from 'react-native';
 import {EDFonts} from '../utils/EDFontConstants';
 import Metrics from '../utils/metrics';
@@ -21,22 +22,25 @@ export default class EDThemeHeader extends Component {
     return (
       <View>
         <Image style={styles.imageBackground} source={Assets.bg_login} />
-        <View
-          style={[
-            styles.backButtonContainer,
-            {alignItems: isRTLCheck() ? 'flex-end' : 'flex-start'},
-          ]}>
-          <TouchableOpacity
-            onPress={() =>
-              this.props.onLeftButtonPress && this.props.onLeftButtonPress()
-            }>
-            <MaterialIcon
-              size={25}
-              color={EDColors.white}
-              name={this.props.icon || 'arrow-back'}
-            />
-          </TouchableOpacity>
-        </View>
+        <SafeAreaView style={styles.backButtonContainer}>
+          <View
+            style={[
+              // styles.backButtonContainer,
+              {alignItems: isRTLCheck() ? 'flex-end' : 'flex-start'},
+            ]}>
+            <TouchableOpacity
+              onPress={() =>
+                this.props.onLeftButtonPress && this.props.onLeftButtonPress()
+              }>
+              <MaterialIcon
+                size={25}
+                color={EDColors.white}
+                name={this.props.icon || 'arrow-back'}
+              />
+            </TouchableOpacity>
+          </View>
+        </SafeAreaView>
+
         <View style={styles.welcomeContainer}>
           <EDRTLText
             style={styles.welcomeText}

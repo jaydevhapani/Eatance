@@ -30,9 +30,10 @@ export default class StoreInfoComponent extends React.PureComponent {
         <View>
           <View style={style.imageContainer} />
           <EDImage
-            placeholder={Assets.bgSplash}
+            placeholder={Assets.logo}
             style={style.storeImage}
             source={objStoreDetails.image}
+            resizeMode={'contain'}
           />
           <View style={style.storeInfo}>
             <View style={style.storeInfoChildContainer}>

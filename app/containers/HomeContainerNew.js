@@ -97,20 +97,20 @@ class HomeContainerNew extends React.PureComponent {
         },
       );
     }
-
-    if (
-      this.props.objStoreDetails == undefined ||
-      this.props.objStoreDetails.store_id == undefined
-    ) {
-      getSelectedStore(
-        (onSuccess) => {
-          this.props.saveStoreDetailsInRedux(onSuccess);
-          debugLog('Selected store :::::', onSuccess);
-          this.getHomeScreenData();
-        },
-        (onFailure) => debugLog('On failure store :::::', onFailure),
-      );
-    } else this.getHomeScreenData();
+    this.getHomeScreenData();
+    // if (
+    //   this.props.objStoreDetails == undefined ||
+    //   this.props.objStoreDetails.store_id == undefined
+    // ) {
+    //   getSelectedStore(
+    //     (onSuccess) => {
+    //       this.props.saveStoreDetailsInRedux(onSuccess);
+    //       debugLog('Selected store :::::', onSuccess);
+    //       this.getHomeScreenData();
+    //     },
+    //     (onFailure) => debugLog('On failure store :::::', onFailure),
+    //   );
+    // } else this.getHomeScreenData();
   }
 
   /** ON WILL FOCUS */

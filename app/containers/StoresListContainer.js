@@ -103,7 +103,7 @@ class StoresListContainer extends React.Component {
   render() {
     return (
       <BaseContainer
-        title={strings('storesList.title')}
+        title={'Store'}
         left={this.isForSwitchingStore ? 'arrow-back' : undefined}
         onLeft={this.buttonBackPressed}
         loading={this.state.isLoading}
@@ -124,7 +124,7 @@ class StoresListContainer extends React.Component {
           {/* SAFE AREA VIEW */}
           <SafeAreaView style={styles.mainViewStyle}>
             {/* SearchBar  */}
-            <SearchBar
+            {/* <SearchBar
               returnKeyType="search"
               placeholder={strings('generalNew.search_store')}
               lightTheme={true}
@@ -155,7 +155,7 @@ class StoresListContainer extends React.Component {
                 this.setState({arrayStoresList: undefined});
                 this.callGetStoresListAPI();
               }}
-            />
+            /> */}
             {/* CHECK IF WE HAVE NOTIFICATIONS, ELSE DISPLAY PLAHOLDER VIEW */}
             {this.state.arrayStoresList !== undefined &&
             this.state.arrayStoresList.length > 0 ? (

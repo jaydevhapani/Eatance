@@ -11,9 +11,9 @@ import {
   getAddressList,
   checkOrderDelivered,
   deleteAddress,
-  checkOrderDelivery
+  checkOrderDelivery,
 } from '../utils/ServiceManager';
-import { netStatus } from '../utils/NetworkStatusConnection';
+import {netStatus} from '../utils/NetworkStatusConnection';
 import AddressComponent from '../components/AddressComponent';
 import {
   debugLog,
@@ -21,22 +21,22 @@ import {
   isRTLCheck,
   getProportionalFontSize,
 } from '../utils/EDConstants';
-import { EDColors } from '../utils/EDColors';
+import {EDColors} from '../utils/EDColors';
 import EDRTLText from '../components/EDRTLText';
 import EDRTLView from '../components/EDRTLView';
-import { strings } from '../locales/i18n';
-import { EDFonts } from '../utils/EDFontConstants';
+import {strings} from '../locales/i18n';
+import {EDFonts} from '../utils/EDFontConstants';
 import EDButton from '../components/EDButton';
-import { showDialogue, showNoInternetAlert } from '../utils/EDAlert';
-import { NavigationEvents } from 'react-navigation';
+import {showDialogue, showNoInternetAlert} from '../utils/EDAlert';
+import {NavigationEvents} from 'react-navigation';
 import BaseContainer from './BaseContainer';
 import Assets from '../assets';
-import { connect } from 'react-redux';
-import { changeCartButtonVisibility } from '../redux/actions/FloatingButton';
-import { checkLocationPermission } from '../utils/LocationServices';
-import { PERMISSIONS } from 'react-native-permissions';
+import {connect} from 'react-redux';
+import {changeCartButtonVisibility} from '../redux/actions/FloatingButton';
+import {checkLocationPermission} from '../utils/LocationServices';
+import {PERMISSIONS} from 'react-native-permissions';
 import EDPlaceholderComponent from '../components/EDPlaceholderComponent';
-import { RadioGroup, RadioButton } from 'react-native-flexi-radio-button';
+import {RadioGroup, RadioButton} from 'react-native-flexi-radio-button';
 import Metrics from '../utils/metrics';
 
 class AddressListContainer extends React.PureComponent {
@@ -44,10 +44,9 @@ class AddressListContainer extends React.PureComponent {
     super(props);
 
     this.arrayOrderTypes = [
-      { label: strings('addressNew.pickUp'), value: 0 },
-      { label: strings('addressNew.delivery'), value: 1 },
+      {label: strings('addressNew.pickUp'), value: 0},
+      {label: strings('addressNew.delivery'), value: 1},
       // { label: strings('addressNew.midDelivery'), value: 2 },
-
     ];
     this.arrayAddresses = [];
     this.isSelect = this.props.navigation.state.params.isSelectAddress;
@@ -63,15 +62,8 @@ class AddressListContainer extends React.PureComponent {
   }
 
   addressComponentRender = (item, index) => {
-    debugLog("itemr ;;;", item)
-    return (
-      <AddressComponent
-        data={item}
-        isSelected={true}
-        isViewOnly={true}
-
-      />
-    );
+    debugLog('itemr ;;;', item);
+    return <AddressComponent data={item} isSelected={true} isViewOnly={true} />;
   };
 
   // #render Componets
@@ -103,16 +95,16 @@ class AddressListContainer extends React.PureComponent {
                 style={[
                   style.radioContainer,
                   // eslint-disable-next-line react-native/no-inline-styles
-                  { flexDirection: isRTLCheck() ? 'row-reverse' : 'row' },
+                  {flexDirection: isRTLCheck() ? 'row-reverse' : 'row'},
                 ]}
                 selectedIndex={this.state.isDeliveryStatus}>
-                {this.arrayOrderTypes.map(index => {
+                {this.arrayOrderTypes.map((index) => {
                   return (
                     <RadioButton
                       // eslint-disable-next-line react-native/no-inline-styles
                       style={{
                         flexDirection: isRTLCheck() ? 'row-reverse' : 'row',
-                        alignItems:"flex-start"
+                        alignItems: 'flex-start',
                       }}
                       key={index.label}
                       value={index.label}>
@@ -142,47 +134,48 @@ class AddressListContainer extends React.PureComponent {
 
           {/* ADDRESS LIST */}
           {this.arrayAddresses !== undefined &&
-            this.arrayAddresses.length > 0 ? (
-              // <View style={style.parentFlex}>
-              //   <FlatList
-              //     style={style.flatView}
-              //     data={this.arrayAddresses}
-              //     keyExtractor={(item, index) => item + index}
-              //     renderItem={this.addressComponentRender}
-              //   />
+          this.arrayAddresses.length > 0 ? (
+            // <View style={style.parentFlex}>
+            //   <FlatList
+            //     style={style.flatView}
+            //     data={this.arrayAddresses}
+            //     keyExtractor={(item, index) => item + index}
+            //     renderItem={this.addressComponentRender}
+            //   />
 
-              // </View>
-              this.addressComponentRender(this.arrayAddresses[0], 0)
-            ) : this.strOnScreenTitle.length > 0 ? (
-
-              <EDRTLText title={strings("addressNew.noAddress")} style={[style.txtStyle, { color: EDColors.error }]} />
-
-            ) : null}
-
-          {this.isSelect ? 
+            // </View>
+            this.addressComponentRender(this.arrayAddresses[0], 0)
+          ) : this.strOnScreenTitle.length > 0 ? (
             <EDRTLText
-              style={[style.txtStyle, { marginTop: 10 }]}
+              title={strings('addressNew.noAddress')}
+              style={[style.txtStyle, {color: EDColors.error}]}
+            />
+          ) : null}
+
+          {this.isSelect ? (
+            <EDRTLText
+              style={[style.txtStyle, {marginTop: 10}]}
               title={strings('payment.selectPayment')}
-            /> 
-          : null }
+            />
+          ) : null}
           {/* PAYMENT SELECTION */}
-          {this.isSelect ? 
+          {this.isSelect ? (
             <RadioGroup
               color={EDColors.primary || EDColors.text}
               onSelect={this.onPaymentHandler}
               style={[
                 style.radioGroupStyle,
                 // eslint-disable-next-line react-native/no-inline-styles
-                { flexDirection: isRTLCheck() ? 'row-reverse' : 'row' },
+                {flexDirection: isRTLCheck() ? 'row-reverse' : 'row'},
               ]}
               selectedIndex={this.state.isPaymentStatus}>
-              {this.paymentArray.map(index => {
+              {this.paymentArray.map((index) => {
                 return (
                   <RadioButton
                     style={[
                       style.radioViewContainer,
                       // eslint-disable-next-line react-native/no-inline-styles
-                      { flexDirection: isRTLCheck() ? 'row' : 'row-reverse' },
+                      {flexDirection: isRTLCheck() ? 'row' : 'row-reverse'},
                     ]}
                     key={index.label}
                     value={index.label}>
@@ -191,16 +184,15 @@ class AddressListContainer extends React.PureComponent {
                 );
               })}
             </RadioGroup>
-          : null }
-
+          ) : null}
         </View>
-        {this.arrayAddresses !== undefined &&
-          this.arrayAddresses.length > 0 ?
+        {this.arrayAddresses !== undefined && this.arrayAddresses.length > 0 ? (
           <EDButton
             label={strings('addressNew.continue')}
             style={style.buttonStyle}
             onPress={this.navigateToCheckout}
-          /> : null}
+          />
+        ) : null}
       </BaseContainer>
     );
   }
@@ -219,14 +211,17 @@ class AddressListContainer extends React.PureComponent {
   //#region BUTTON EVENTS
   buttonAddAddressPressed = () => {
     // this.navigateToMap('', 3);
-    this.props.navigation.navigate(this.isSelect ? "detailedAddressListFromCart" : 'detailedAddressList', {
-      isSelectAddress: true,
-    })
+    this.props.navigation.navigate(
+      this.isSelect ? 'detailedAddressListFromCart' : 'detailedAddressList',
+      {
+        isSelectAddress: true,
+      },
+    );
   };
   //#endregion
 
   //#region NETWORK METHODS
-  onConnectionChangeHandler = isConnected => {
+  onConnectionChangeHandler = (isConnected) => {
     if (isConnected) {
       this.fetchAddressList();
     }
@@ -236,7 +231,7 @@ class AddressListContainer extends React.PureComponent {
    *
    * @param {The success response object} objSuccess
    */
-  onAddressListSuccess = objSuccess => {
+  onAddressListSuccess = (objSuccess) => {
     debugLog('OBJ SUCCESS ADDRESSLIST:: ' + JSON.stringify(objSuccess));
     if (
       objSuccess.data.address !== undefined &&
@@ -249,10 +244,10 @@ class AddressListContainer extends React.PureComponent {
       this.strOnScreenMessage = strings('addressNew.noAddressMessage');
     }
 
-    this.setState({ isLoading: false });
+    this.setState({isLoading: false});
   };
 
-  onOrderDeliverySuccess = objSuccess => {
+  onOrderDeliverySuccess = (objSuccess) => {
     debugLog('OBJ SUCCESS DRIVER AVAILABLITY:: ' + JSON.stringify(objSuccess));
     if (objSuccess.data.status === RESPONSE_SUCCESS) {
       this.props.navigation.navigate('checkout', {
@@ -260,7 +255,7 @@ class AddressListContainer extends React.PureComponent {
         latitude: this.arrayAddresses[this.state.selectedIndex].latitude,
         longitude: this.arrayAddresses[this.state.selectedIndex].longitude,
         address_id: this.arrayAddresses[this.state.selectedIndex].address_id,
-        objSelectedAddress: this.arrayAddresses[this.state.selectedIndex]
+        objSelectedAddress: this.arrayAddresses[this.state.selectedIndex],
       });
 
       // this.props.navigation.navigate('checkout', {
@@ -273,37 +268,37 @@ class AddressListContainer extends React.PureComponent {
       debugLog('Fail response :::::::::: ', objSuccess);
       showDialogue(objSuccess.data.message);
     }
-    this.setState({ isLoading: false });
+    this.setState({isLoading: false});
   };
 
-  onAddressDeleteSuccess = objSuccess => {
+  onAddressDeleteSuccess = (objSuccess) => {
     debugLog('OBJ SUCCESS ADDRESSLIST:: ' + JSON.stringify(objSuccess));
     this.fetchAddressList();
   };
 
-  addressSelectionAction = index => {
+  addressSelectionAction = (index) => {
     console.log('Index::::::::::::: ', index);
-    this.setState({ selectedIndex: index });
+    this.setState({selectedIndex: index});
   };
 
   /**
    *
    * @param {The failure response object} objFailure
    */
-  onAddressListFailure = objFailure => {
+  onAddressListFailure = (objFailure) => {
     debugLog('OBJ FAILURE ADDRESSLIST :: ', objFailure);
     this.arrayAddresses = [];
     this.strOnScreenTitle = objFailure.message;
-    this.setState({ isLoading: false });
-  }
+    this.setState({isLoading: false});
+  };
 
-  onOrderDeliveryFailure = objFailure => {
-    this.setState({ isLoading: false });
+  onOrderDeliveryFailure = (objFailure) => {
+    this.setState({isLoading: false});
     showDialogue(objFailure.data.message);
   };
 
   onAddressDeleteFailure = () => {
-    this.setState({ isLoading: false });
+    this.setState({isLoading: false});
   };
 
   /**
@@ -311,13 +306,13 @@ class AddressListContainer extends React.PureComponent {
    * @param {The call API for get Address List}
    */
   fetchAddressList = () => {
-    this.setState({ isLoading: true });
-    netStatus(isConnected => {
+    this.setState({isLoading: true});
+    netStatus((isConnected) => {
       if (isConnected) {
         let objaddressListParams = {
           user_id: this.props.UserID,
           language_slug: this.props.lan,
-          showonly_main: 1
+          showonly_main: 1,
         };
 
         getAddressList(
@@ -330,7 +325,7 @@ class AddressListContainer extends React.PureComponent {
         // showNoInternetAlert();
         this.strOnScreenTitle = strings('generalNew.noInternetTitle');
         this.strOnScreenMessage = strings('generalNew.noInternet');
-        this.setState({ isLoading: false });
+        this.setState({isLoading: false});
       }
     });
   };
@@ -339,15 +334,15 @@ class AddressListContainer extends React.PureComponent {
    *
    * @param {The call API for delete Address}
    */
-  deleteAddress = address_id => {
-    netStatus(isConnected => {
+  deleteAddress = (address_id) => {
+    netStatus((isConnected) => {
       if (isConnected) {
         let objaddressdeleteParams = {
           language_slug: this.props.lan,
           user_id: this.props.UserID,
           address_id: address_id,
         };
-        this.setState({ isLoading: true });
+        this.setState({isLoading: true});
         deleteAddress(
           objaddressdeleteParams,
           this.onAddressDeleteSuccess,
@@ -365,19 +360,22 @@ class AddressListContainer extends React.PureComponent {
    * @param {The call API for Check Delivery available}
    */
   checkDeliveryAPI = () => {
-    netStatus(isConnected => {
+    netStatus((isConnected) => {
       if (isConnected) {
         let objcheckDeliveryListParams = {
           language_slug: this.props.lan,
           user_id: this.props.UserID,
           order_delivery: 'Delivery',
-          users_latitude: this.arrayAddresses[this.state.selectedIndex].latitude,
-          users_longitude: this.arrayAddresses[this.state.selectedIndex].longitude,
+          users_latitude:
+            this.arrayAddresses[this.state.selectedIndex].latitude,
+          users_longitude:
+            this.arrayAddresses[this.state.selectedIndex].longitude,
           store_id: this.props.objStoreDetails.store_id,
           user_km: '',
-          driver_km: ''
+          driver_km: '',
         };
-        this.setState({ isLoading: true });
+        console.log('ID ::: ', this.props.objStoreDetails.store_id);
+        this.setState({isLoading: true});
         checkOrderDelivery(
           objcheckDeliveryListParams,
           this.onOrderDeliverySuccess,
@@ -397,8 +395,7 @@ class AddressListContainer extends React.PureComponent {
           delivery_status: 'PickUp',
           latitude: this.arrayAddresses[this.state.selectedIndex].latitude,
           longitude: this.arrayAddresses[this.state.selectedIndex].longitude,
-          address_id: this.arrayAddresses[this.state.selectedIndex]
-            .address_id,
+          address_id: this.arrayAddresses[this.state.selectedIndex].address_id,
         });
       } else {
         this.checkDeliveryAPI();
@@ -413,7 +410,7 @@ class AddressListContainer extends React.PureComponent {
 
   //# NAVIGATE TO MAP
   navigateToMap = (item, value) => {
-    netStatus(isConnected => {
+    netStatus((isConnected) => {
       if (isConnected) {
         var paramPermission =
           Platform.OS === 'ios'
@@ -442,7 +439,7 @@ class AddressListContainer extends React.PureComponent {
                   longitude: item.longitude,
                   city: item.city,
                   zipCode: item.zipcode,
-                  is_main: item.is_main
+                  is_main: item.is_main,
                 };
                 this.props.navigation.navigate(
                   this.isSelect ? 'addressMapFromCart' : 'addressMap',
@@ -466,7 +463,7 @@ class AddressListContainer extends React.PureComponent {
             showDialogue(
               strings('generalNew.locationPermission'),
               '',
-              [{ text: strings('buttonTitles.cancel') }],
+              [{text: strings('buttonTitles.cancel')}],
               () => {
                 Linking.openURL('app-settings:');
               },
@@ -479,19 +476,19 @@ class AddressListContainer extends React.PureComponent {
     });
   };
 
-  deleteHandler = address_id => {
+  deleteHandler = (address_id) => {
     showDialogue(
       strings('addressNew.deleteAddress'),
       '',
-      [{ text: strings('buttonTitles.cancel') }],
+      [{text: strings('buttonTitles.cancel')}],
       () => {
         this.deleteAddress(address_id);
       },
     );
   };
 
-  onDeliveryHandler = option => {
-    this.setState({ isDeliveryStatus: option });
+  onDeliveryHandler = (option) => {
+    this.setState({isDeliveryStatus: option});
   };
 
   navigateToBack = () => {
@@ -508,16 +505,16 @@ class AddressListContainer extends React.PureComponent {
 }
 
 export default connect(
-  state => {
+  (state) => {
     return {
       UserID: state.userOperations.userDetails.UserID,
       lan: state.userOperations.lan,
-      objStoreDetails: state.contentOperations.objStoreDetails || {}
+      objStoreDetails: state.contentOperations.objStoreDetails || {},
     };
   },
-  dispatch => {
+  (dispatch) => {
     return {
-      changeCartButtonVisibility: data => {
+      changeCartButtonVisibility: (data) => {
         dispatch(changeCartButtonVisibility(data));
       },
     };
@@ -531,8 +528,8 @@ const style = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: EDColors.offWhite,
   },
-  parentFlex: { flex: 1 },
-  radioContainer: { marginHorizontal: 10, backgroundColor: EDColors.transparent },
+  parentFlex: {flex: 1},
+  radioContainer: {marginHorizontal: 10, backgroundColor: EDColors.transparent},
   titleText: {
     color: EDColors.primary,
     fontSize: getProportionalFontSize(20),
@@ -546,7 +543,7 @@ const style = StyleSheet.create({
     alignItems: 'center',
     marginHorizontal: 0,
   },
-  btnText: { color: EDColors.white },
+  btnText: {color: EDColors.white},
   txtStyle: {
     // flex: 1,
     padding: 10,
@@ -559,8 +556,8 @@ const style = StyleSheet.create({
     fontFamily: EDFonts.regular,
     fontSize: getProportionalFontSize(14),
     marginRight: 5,
-    maxWidth : Metrics.screenWidth * .25,
-    marginTop: 3
+    maxWidth: Metrics.screenWidth * 0.25,
+    marginTop: 3,
   },
   buttonStyle: {
     alignSelf: 'center',
@@ -587,7 +584,7 @@ const style = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 5,
     shadowColor: EDColors.text,
-    shadowOffset: { height: 0, width: 0 },
+    shadowOffset: {height: 0, width: 0},
     backgroundColor: EDColors.white,
   },
   paymentMethodTxt: {

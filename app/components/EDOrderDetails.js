@@ -20,6 +20,7 @@ import {Icon} from 'react-native-elements';
 import Metrics from '../utils/metrics';
 import StarRating from 'react-native-star-rating';
 import {GET_WHATSP_NUMBER} from '../utils/ServiceManager';
+import {showDialogue} from '../utils/EDAlert';
 
 const orderStatus = [
   strings('ordersNew.accepted'),
@@ -687,7 +688,7 @@ export default class EDOrderDetails extends Component {
         if (!supported) {
           showDialogue('WhatspApp is not avilable in your device');
         } else {
-          return Linking.openURL(url);
+          return Linking.openURL(URL);
         }
       })
       .catch((err) => showDialogue('WhatspApp is not avilable in your device'));
