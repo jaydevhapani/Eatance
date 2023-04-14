@@ -36,6 +36,7 @@ import {
   ADD_ORDER_REVIEW,
   CHECK_ORDER_DELIVERY,
   WHATSP_NUMBER_API,
+  GET_PAYMENT_POINT,
 } from '../utils/EDConstants';
 import {Platform} from 'react-native';
 import {strings} from '../locales/i18n';
@@ -1168,6 +1169,26 @@ export async function GET_WHATSP_NUMBER() {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
+  })
+    .then((respose) => {
+      return respose.json();
+    })
+    .then((Data) => {
+      return Data;
+    })
+    .catch((error) => {
+      return error;
+    });
+}
+
+export async function GET_PAYMENT_STATUS(PARAMS) {
+  return await fetch(GET_PAYMENT_POINT, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(PARAMS),
   })
     .then((respose) => {
       return respose.json();

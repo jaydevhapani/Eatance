@@ -9,6 +9,7 @@ import {
   Text,
   FlatList,
   TouchableOpacity,
+  AppState,
 } from 'react-native';
 import Assets from '../assets';
 import {saveNavigationSelection} from '../redux/actions/Navigation';

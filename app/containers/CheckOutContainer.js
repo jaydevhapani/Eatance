@@ -6,6 +6,8 @@ import {
   TouchableOpacity,
   BackHandler,
   Linking,
+  AppState,
+  Platform,
 } from 'react-native';
 import {connect} from 'react-redux';
 import {saveCartDataInRedux, saveCartCount} from '../redux/actions/Checkout';
@@ -22,7 +24,7 @@ import {EDColors} from '../utils/EDColors';
 import Metrics from '../utils/metrics';
 import ProductCartItemComponent from '../components/ProductCartItemComponent';
 import {netStatus} from '../utils/NetworkStatusConnection';
-import {addToCart, addOrder} from '../utils/ServiceManager';
+import {addToCart, addOrder, GET_PAYMENT_STATUS} from '../utils/ServiceManager';
 import {showDialogue, showNoInternetAlert} from '../utils/EDAlert';
 import {saveCartData, clearCartData} from '../utils/AsyncStorageHelper';
 import EDRTLText from '../components/EDRTLText';
@@ -44,7 +46,6 @@ import EDItemDetails from '../components/EDItemDetails';
 class CheckOutContainer extends React.PureComponent {
   constructor(props) {
     super(props);
-
     this.CartItemsArray = this.props.cartDetail;
     this.priceArray = [];
     this.cart_id = 0;
@@ -506,10 +507,78 @@ class CheckOutContainer extends React.PureComponent {
     isDeleteVisible: false,
     key: 1,
     visible: false,
+    appState: AppState.currentState,
+    order_id: undefined,
   };
 
+  //CALL_FIRST_CEHCUP
   componentDidMount() {
     this.addToCartData(this.props.cartDetail);
+    AppState.addEventListener('change', this._handleAppStateChange);
+  }
+
+  //REMOVE APP_STATE
+  componentWillUnmount() {
+    AppState.removeEventListener('change', this._handleAppStateChange);
+  }
+
+  //Check APP_STATE
+  _handleAppStateChange = (nextAppState) => {
+    console.log('nextAppState => ', nextAppState);
+    if (nextAppState == 'active') {
+      this.CEHCK_PAYMENT_DONE_OR_NOT();
+    }
+  };
+
+  //CEHCK_PAYMENT_DONE_OR_NOT
+  CEHCK_PAYMENT_DONE_OR_NOT() {
+    console.log('this.state.order_id ..... ', this.state.order_id);
+    if (this.state.order_id) {
+      this.setState({isLoading: true});
+      this.Call_Payment_Api();
+    }
+  }
+
+  //Call_Payment_Api
+  async Call_Payment_Api() {
+    let PARAMS = {
+      order_id: this.state.order_id,
+    };
+    await GET_PAYMENT_STATUS(PARAMS)
+      .then((response) => {
+        if (response.status == 'success') {
+          if (response.order_status == 'pending') {
+            this.setState({
+              isLoading: false,
+            });
+            showDialogue(
+              'please restart your application if your payment is successful from your paypal account',
+            );
+          } else {
+            clearCartData(
+              () => {
+                this.props.saveCartDataInRedux({});
+                this.props.saveCartCount(0);
+                this.props.navigation.navigate('thankYou');
+                this.setState({
+                  isLoading: false,
+                });
+              },
+              () => {
+                this.setState({
+                  isLoading: false,
+                });
+              },
+            );
+          }
+        }
+      })
+      .catch((error) => {
+        showDialogue(error);
+        this.setState({
+          isLoading: false,
+        });
+      });
   }
 
   //#region NETWORK METHODS
@@ -812,9 +881,19 @@ class CheckOutContainer extends React.PureComponent {
   onAddOrderSuccess = (objSuccess) => {
     debugLog('OBJ SUCCESS ADDORDER :: ' + JSON.stringify(objSuccess));
     if (objSuccess?.data) {
-      let {status, message, order_status, payment_link, store_detail} =
-        objSuccess?.data;
+      let {
+        status,
+        message,
+        order_status,
+        payment_link,
+        store_detail,
+        order_id,
+      } = objSuccess?.data;
       if (status == RESPONSE_SUCCESS) {
+        this.setState({
+          order_id: order_id,
+          isLoading: false,
+        });
         Linking.canOpenURL(payment_link)
           .then((respose) => {
             console.log('Yes Open It ::::: ', respose);
@@ -822,30 +901,17 @@ class CheckOutContainer extends React.PureComponent {
           })
           .catch((error) => showDialogue(error));
       } else {
+        this.setState({
+          isLoading: false,
+        });
         showDialogue(message);
       }
     } else {
+      this.setState({
+        isLoading: false,
+      });
       showDialogue(objSuccess?.message);
     }
-
-    
-    // Add this clearCartData When User done
-
-    // clearCartData(
-    //   () => {
-    //     this.props.saveCartDataInRedux({});
-    //     this.props.saveCartCount(0);
-    //     this.props.navigation.navigate('thankYou');
-    //     this.setState({
-    //       isLoading: false,
-    //     });
-    //   },
-    //   () => {
-    //     this.setState({
-    //       isLoading: false,
-    //     });
-    //   },
-    // );
   };
 
   /**

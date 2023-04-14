@@ -40,6 +40,7 @@ export const UPDATE_TERMS_AND_CONDITIONS_STATUS = BASE_URL + 'user_tnc_status';
 export const ADD_ORDER_REVIEW = BASE_URL + 'add_OrderReview';
 export const CHECK_ORDER_DELIVERY = BASE_URL + 'check_order_delivered';
 export const WHATSP_NUMBER_API = BASE_URL + 'getWhatsappNumber';
+export const GET_PAYMENT_POINT = BASE_URL + 'getOrderStatus';
 
 export const INR_SIGN = '$';
 
