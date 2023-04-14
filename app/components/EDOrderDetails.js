@@ -376,7 +376,7 @@ export default class EDOrderDetails extends Component {
                   onPress={this.buttonCallPressed}
                   color={EDColors.homeButtonColor}
                 />
-                <Icon
+                {/* <Icon
                   reverse
                   raised
                   containerStyle={{marginHorizontal: 0, marginVertical: 0}}
@@ -384,7 +384,13 @@ export default class EDOrderDetails extends Component {
                   name={'chat'}
                   onPress={this.ChatCovergation}
                   color={EDColors.homeButtonColor}
-                />
+                /> */}
+                <TouchableOpacity onPress={() => this.ChatCovergation()}>
+                  <Image
+                    source={Assets.whatspp}
+                    style={{height: 30, width: 30}}
+                  />
+                </TouchableOpacity>
               </TouchableOpacity>
             </EDRTLView>
 
@@ -673,26 +679,13 @@ export default class EDOrderDetails extends Component {
         if (Response.status == 'success') {
           console.log('WhatsappNumber :: ', Response.whatsapp_number);
           let WHATSP_APP_OPEN_URL = `whatsapp://send?text=hello&phone=${Response.whatsapp_number}`;
-          this.Lets_ConnectWith_WhatSp(WHATSP_APP_OPEN_URL);
+          Linking.openURL(WHATSP_APP_OPEN_URL);
         }
       })
       .catch((Error) => {
         console.log('Error ::: ', Error);
       });
   };
-
-  //Lets_ConnectWith_WhatSp
-  Lets_ConnectWith_WhatSp(URL) {
-    Linking.canOpenURL(URL)
-      .then((supported) => {
-        if (!supported) {
-          showDialogue('WhatspApp is not avilable in your device');
-        } else {
-          return Linking.openURL(URL);
-        }
-      })
-      .catch((err) => showDialogue('WhatspApp is not avilable in your device'));
-  }
   buttonCallPressed = () => {
     if (
       this.props.orderDetails.store_phone_number !== undefined &&

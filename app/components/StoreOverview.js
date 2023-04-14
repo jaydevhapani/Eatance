@@ -1,5 +1,12 @@
 import React from 'react';
-import {View, StyleSheet, Linking, Platform} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Linking,
+  Platform,
+  TouchableOpacity,
+  Image,
+} from 'react-native';
 import TextViewLeftImage from './TextViewLeftImage';
 import {EDFonts} from '../utils/EDFontConstants';
 import {EDColors} from '../utils/EDColors';
@@ -11,6 +18,7 @@ import {strings} from '../locales/i18n';
 import {showDialogue} from '../utils/EDAlert';
 import {Icon} from 'react-native-elements';
 import {GET_WHATSP_NUMBER} from '../utils/ServiceManager';
+import Assets from '../assets';
 
 export default class StoreOverview extends React.PureComponent {
   render() {
@@ -60,7 +68,7 @@ export default class StoreOverview extends React.PureComponent {
               onPress={this.buttonDirectionsPressed}
             />
           ) : null}
-          <Icon
+          {/* <Icon
             reverse
             raised
             size={13}
@@ -68,7 +76,10 @@ export default class StoreOverview extends React.PureComponent {
             name={'chat'}
             color={EDColors.homeButtonColor}
             onPress={this.ChatCovergation}
-          />
+          /> */}
+          <TouchableOpacity onPress={() => this.ChatCovergation()}>
+            <Image source={Assets.whatspp} style={{height: 30, width: 30}} />
+          </TouchableOpacity>
         </EDRTLView>
 
         <View
@@ -145,27 +156,14 @@ export default class StoreOverview extends React.PureComponent {
       .then((Response) => {
         if (Response.status == 'success') {
           console.log('WhatsappNumber :: ', Response.whatsapp_number);
-          let WHATSP_APP_OPEN_URL = `whatsapp://send?text=hello&phone=${Response.whatsapp_number}`;
-          this.Lets_ConnectWith_WhatSp(WHATSP_APP_OPEN_URL);
+          let WHATSP_APP_OPEN_URL = `https://wa.me/${Response.whatsapp_number}?text='hello`;
+          Linking.openURL(WHATSP_APP_OPEN_URL);
         }
       })
       .catch((Error) => {
         console.log('Error ::: ', Error);
       });
   };
-
-  //Lets_ConnectWith_WhatSp
-  Lets_ConnectWith_WhatSp(URL) {
-    Linking.canOpenURL(URL)
-      .then((supported) => {
-        if (!supported) {
-          showDialogue('WhatspApp is not avilable in your device');
-        } else {
-          return Linking.openURL(URL);
-        }
-      })
-      .catch((err) => showDialogue('WhatspApp is not avilable in your device'));
-  }
 
   //#endregion
 

@@ -20,6 +20,7 @@ const Assets = {
   other_icon: require('../assets/image/other_icon.png'),
   destination: require('../assets/image/destination.png'),
   store: require('../assets/image/store.png'),
+  whatspp: require('../assets/image/whatsapp.png'),
 };
 
 export default Assets;
