@@ -429,12 +429,12 @@ class SplashContainer extends React.Component {
       StackActions.reset({
         index: 0,
         actions: [
-          // NavigationActions.navigate({
-          //   routeName: isRTLCheck() ? 'mainRTL' : 'main',
-          // }),
           NavigationActions.navigate({
-            routeName: 'storesList',
+            routeName: isRTLCheck() ? 'mainRTL' : 'main',
           }),
+          // NavigationActions.navigate({
+          //   routeName: 'storesList',
+          // }),
         ],
       }),
     );
