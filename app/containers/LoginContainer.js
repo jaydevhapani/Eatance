@@ -305,7 +305,7 @@ class LoginContainer extends React.Component {
     if (objSuccess.data !== undefined && objSuccess.data.login !== undefined) {
       var isTAndCAccepted = (objSuccess.data.login.tnc_status || '') == '1';
       this.props.saveTermsAndConditionsStatus(isTAndCAccepted);
-
+      console.log("objSuccess.data.login :: => ", objSuccess.data.login)
       this.objUserDetailsToSave = objSuccess.data.login;
 
       this.setState({

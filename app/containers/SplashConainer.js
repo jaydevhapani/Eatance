@@ -44,6 +44,7 @@ import {
   getSelectedStore,
   getIsTermsAndConditionsAccepted,
   setIsTermsAndConditionsAccepted,
+  saveUserLoginDetails,
 } from '../utils/AsyncStorageHelper';
 import {
   debugLog,
@@ -421,10 +422,31 @@ class SplashContainer extends React.Component {
     });
   };
 
-  /** SKIP BUTTON EVENT */
-  _onPressSkip = () => {
-    // NAVITGATE USER TO STORES LIST ALWAYS
-    this.props.saveTermsAndConditionsStatus(true);
+  // _set_user_dummy_data
+  _set_user_dummy_data() {
+    let user_dummy = {
+      Email: '',
+      FirstName: '',
+      LastName: '',
+      PhoneNumber: '',
+      UserID: '0',
+      date_of_birth: '',
+      image:
+        '',
+      isEmailVerified: '1',
+      language_slug: 'en',
+      notification: '0',
+      rating: '2',
+      status: '1',
+      tnc_status: '1',
+    };
+    this.props.saveUserDetailsInRedux(user_dummy);
+    saveUserLoginDetails(
+      user_dummy,
+      (onSuccess) => debugLog('SUCCESS ASYNC STORE :: ', onSuccess),
+      (onFailure) => debugLog('FAILURE ASYNC STORE :: ', onFailure),
+    );
+    global.isSkipUser = true;
     this.props.navigation.dispatch(
       StackActions.reset({
         index: 0,
@@ -438,7 +460,14 @@ class SplashContainer extends React.Component {
         ],
       }),
     );
+  }
 
+  /** SKIP BUTTON EVENT */
+  _onPressSkip = () => {
+    // NAVITGATE USER TO STORES LIST ALWAYS
+    //FirstSetDummyLoginDataForSkipOrder
+    this.props.saveTermsAndConditionsStatus(true);
+    this._set_user_dummy_data();
     // Fetched selected store from async storage
     // getSelectedStore(
     //   onSuccess => {

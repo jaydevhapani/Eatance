@@ -635,12 +635,13 @@ class CheckOutContainer extends React.PureComponent {
         var objItems = {items: item.items};
         debugLog('JSON ITEM ::::::::::: ', JSON.stringify(item.items));
         debugLog('ONJSTOREDETAILS:::::::::', this.props.objStoreDetails);
+        debugLog('this.props.cartDetail:::::::::', this.props.cartDetail);
         var objaddToCartParams = {
           language_slug: this.props.lan,
           user_id: this.props.UserID,
           store_id: this.props.objStoreDetails.store_id,
           items: JSON.stringify(objItems),
-          cart_id: '',
+          cart_id: this.props.cartDetail.cart_id,
           coupon: this.coupon_name,
           order_delivery: this.props.navigation.state.params.delivery_status,
           latitude: this.props.navigation.state.params.latitude,

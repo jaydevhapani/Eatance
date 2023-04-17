@@ -312,10 +312,10 @@ class AddressListContainer extends React.PureComponent {
       if (isConnected) {
         let objaddressListParams = {
           user_id: this.props.UserID,
-          language_slug: this.props.lan,
-          showonly_main: 1,
+          // language_slug: this.props.lan,
+          // showonly_main: 1,
         };
-
+        console.log("objaddressListParams :: => ", objaddressListParams)
         getAddressList(
           objaddressListParams,
           this.onAddressListSuccess,

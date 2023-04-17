@@ -10,7 +10,7 @@
         "privacyPolicy": "Privacy Policy"
     },
     "login": {
-        "app_name": "Eatance Liquor",
+        "app_name": "Epic Wines and Spirits",
         "welcome": "Welcome",
         "signIn": "Sign In",
         "email": "Email",
@@ -217,7 +217,7 @@
         "allowLocation": "Allow Location",
         "locationError2": "Unable to get current location, please ensure location services are turned on.",
         "locationError": "Please allow location access.",
-        "locationAccess": "Allow Eatance Liquor to access your location "
+        "locationAccess": "Allow Epic Wines and Spirits Liquor to access your location "
     },
     "validationsNew": {
         "emptyEmail": "Please enter your email address",
@@ -293,7 +293,7 @@
         "home": "Home",
         "account": "Account",
         "myOrder": "My Orders",
-        "shareApp": "Share Eatance Liquor application",
+        "shareApp": "Epic Wines and Spirits",
         "logoutConfirm": "Are you sure you want to Sign Out?"
     },
     "promoCode": {
