@@ -27,6 +27,27 @@ PODS:
     - DoubleConversion
     - glog
   - glog (0.3.5)
+  - Google-Maps-iOS-Utils (2.1.0):
+    - Google-Maps-iOS-Utils/Clustering (= 2.1.0)
+    - Google-Maps-iOS-Utils/Geometry (= 2.1.0)
+    - Google-Maps-iOS-Utils/Heatmap (= 2.1.0)
+    - Google-Maps-iOS-Utils/QuadTree (= 2.1.0)
+    - GoogleMaps
+  - Google-Maps-iOS-Utils/Clustering (2.1.0):
+    - Google-Maps-iOS-Utils/QuadTree
+    - GoogleMaps
+  - Google-Maps-iOS-Utils/Geometry (2.1.0):
+    - GoogleMaps
+  - Google-Maps-iOS-Utils/Heatmap (2.1.0):
+    - Google-Maps-iOS-Utils/QuadTree
+    - GoogleMaps
+  - Google-Maps-iOS-Utils/QuadTree (2.1.0):
+    - GoogleMaps
+  - GoogleMaps (3.5.0):
+    - GoogleMaps/Maps (= 3.5.0)
+  - GoogleMaps/Base (3.5.0)
+  - GoogleMaps/Maps (3.5.0):
+    - GoogleMaps/Base
   - GoogleUtilities (7.11.1):
     - GoogleUtilities/AppDelegateSwizzler (= 7.11.1)
     - GoogleUtilities/Environment (= 7.11.1)
@@ -245,6 +266,10 @@ PODS:
   - React-jsinspector (0.63.4)
   - react-native-geolocation (2.1.0):
     - React-Core
+  - react-native-google-maps (0.27.1):
+    - Google-Maps-iOS-Utils (= 2.1.0)
+    - GoogleMaps (= 3.5.0)
+    - React
   - react-native-image-picker (4.10.3):
     - React-Core
   - react-native-maps (0.27.1):
@@ -389,6 +414,7 @@ DEPENDENCIES:
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - "react-native-geolocation (from `../node_modules/@react-native-community/geolocation`)"
+  - react-native-google-maps (from `../node_modules/react-native-maps`)
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - react-native-maps (from `../node_modules/react-native-maps`)
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
@@ -427,6 +453,8 @@ SPEC REPOS:
     - Firebase
     - FirebaseCore
     - FirebaseCoreInternal
+    - Google-Maps-iOS-Utils
+    - GoogleMaps
     - GoogleUtilities
     - IQKeyboardManager
     - libwebp
@@ -474,6 +502,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
   react-native-geolocation:
     :path: "../node_modules/@react-native-community/geolocation"
+  react-native-google-maps:
+    :path: "../node_modules/react-native-maps"
   react-native-image-picker:
     :path: "../node_modules/react-native-image-picker"
   react-native-maps:
@@ -547,6 +577,8 @@ SPEC CHECKSUMS:
   FirebaseCoreInternal: fa2899eb1f340054858d289e5a0fb935a0a74e52
   Folly: b73c3869541e86821df3c387eb0af5f65addfab4
   glog: 40a13f7840415b9a77023fbcae0f1e6f43192af3
+  Google-Maps-iOS-Utils: c32891ff472eaaa1fca032beedafa1a013af7875
+  GoogleMaps: 32ca02de09de357a10ac773f2c70f1986751392d
   GoogleUtilities: 9aa0ad5a7bc171f8bae016300bfcfa3fb8425749
   IQKeyboardManager: 8eab4d8111418414619d1df8e4779ce5d0f8d7e2
   libwebp: f62cb61d0a484ba548448a4bd52aabf150ff6eef
@@ -565,6 +597,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 93bd528844ad21dc07aab1c67cb10abae6df6949
   React-jsinspector: 58aef7155bc9a9683f5b60b35eccea8722a4f53a
   react-native-geolocation: 69f4fd37650b8e7fee91816d395e62dd16f5ab8d
+  react-native-google-maps: 0a989abda71059db2caa98b9dacca7a8f38a47d0
   react-native-image-picker: 60f4246eb5bb7187fc15638a8c1f13abd3820695
   react-native-maps: f4b89da81626ad7f151a8bfcb79733295d31ce5c
   react-native-netinfo: 2517ad504b3d303e90d7a431b0fcaef76d207983
@@ -600,6 +633,6 @@ SPEC CHECKSUMS:
   TOCropViewController: edfd4f25713d56905ad1e0b9f5be3fbe0f59c863
   Yoga: 4bd86afe9883422a7c4028c00e34790f560923d6
 
-PODFILE CHECKSUM: 7b595f548463b977093f6a881300cd489a1028f6
+PODFILE CHECKSUM: c3e0e31fe4e01e3dd4308fd3256d42a14d3c23bb
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.12.0

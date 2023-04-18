@@ -36,7 +36,7 @@ import {EDFonts} from '../utils/EDFontConstants';
 
 let {width, height} = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
-const LATITUDE_DELTA = 0.0022;
+const LATITUDE_DELTA = 0.1;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
 class AddressMapContainer extends React.Component {
@@ -56,6 +56,9 @@ class AddressMapContainer extends React.Component {
   };
 
   render() {
+    console.log('this.state.latitude :: ', this.state.latitude);
+    console.log('this.state.longitude :: ', this.state.longitude);
+    console.log('this.state.region :: ', this.state.region);
     return (
       <BaseContainer
         title={strings('addressNew.selectAddress')}
@@ -69,7 +72,7 @@ class AddressMapContainer extends React.Component {
           <ScrollView style={style.mainContainer}>
             <View style={style.subContainer}>
               <MapView
-                provider={Platform.OS === 'ios' ? null : PROVIDER_GOOGLE}
+                provider={PROVIDER_GOOGLE}
                 zoomControlEnabled={true}
                 zoomEnabled={true}
                 showsUserLocation={true}
@@ -183,10 +186,6 @@ class AddressMapContainer extends React.Component {
   //#endregion
 
   componentDidMount() {
-    debugLog(
-      'TOTAL COUNT :::::',
-      this.props.navigation.state.params.totalCount,
-    );
     if (this.state.totalCount == 0)
       this.setState({is_main: '1', is_default: true});
     AppState.addEventListener('change', this._handleAppStateChange);
@@ -201,14 +200,17 @@ class AddressMapContainer extends React.Component {
       this.state.appState.match(/inactive|background/) &&
       nextAppState === 'active'
     ) {
-      debugLog('App has come to the foreground!');
-      debugLog('get back result successs');
       this.viewUpdate();
     }
     this.setState({appState: nextAppState});
   };
 
   viewUpdate = () => {
+    console.log(
+      ' this.props.navigation.state.params :::: ',
+      this.props.navigation.state.params,
+      this.nav_value,
+    );
     if (this.nav_value !== 2) {
       if (this.props.navigation.state.params.address_id !== undefined) {
         this.address_id = this.props.navigation.state.params.address_id;
@@ -353,6 +355,10 @@ class AddressMapContainer extends React.Component {
   getCurrentAddressLocation = () => {
     console.log('LATITUDE_DELTA ::: ', LATITUDE_DELTA);
     console.log('LONGITUDE_DELTA ::: ', LONGITUDE_DELTA);
+    console.log(
+      'this.props.googleMapsAPIKey ::: ',
+      this.props.googleMapsAPIKey,
+    );
     this.setState({
       isLoading: true,
     });
@@ -360,6 +366,7 @@ class AddressMapContainer extends React.Component {
       (onSucces) => {
         this.city = onSucces.address.city;
         this.zipCode = onSucces.address.zipCode;
+        console.log('onSucces ::: ', onSucces);
         this.setState({
           region: {
             latitude: onSucces.latitude,
