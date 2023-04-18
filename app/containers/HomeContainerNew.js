@@ -26,6 +26,7 @@ import {
   APP_NAME,
   isRTLCheck,
   getProportionalFontSize,
+  GOOGLE_API_KEY,
 } from '../utils/EDConstants';
 import {EDColors} from '../utils/EDColors';
 import BannerImages from '../components/BannerImages';
@@ -840,7 +841,7 @@ class HomeContainerNew extends React.PureComponent {
       objData.google_map_api_key !== null &&
       objData.google_map_api_key.trim().length > 0
     ) {
-      this.props.saveGoogleMapsAPIKeyInRedux(objData.google_map_api_key);
+      this.props.saveGoogleMapsAPIKeyInRedux(GOOGLE_API_KEY);
       console.log('GOOGLEMAPSAPIKEY:::::::::::', objData.google_map_api_key);
     }
 
