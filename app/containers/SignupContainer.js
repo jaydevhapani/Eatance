@@ -27,6 +27,9 @@ import {Icon} from 'react-native-elements';
 import {EDFonts} from '../utils/EDFontConstants';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import moment from 'moment';
+import deviceInfoModule from 'react-native-device-info';
+import {saveUserFCMInRedux} from '../redux/actions/User';
+import {checkFirebasePermission} from '../utils/FirebaseServices';
 
 class SignUpContainer extends React.PureComponent {
   //#region LIFE CYCLE METHODS
@@ -37,8 +40,23 @@ class SignUpContainer extends React.PureComponent {
   }
 
   /** DID MOUNT */
-  componentDidMount() {}
-
+  componentDidMount() {
+    if (
+      this.props.token === undefined ||
+      this.props.token === null ||
+      this.props.token === ''
+    ) {
+      checkFirebasePermission(
+        (onSuccess) => {
+          console.log('onSuccess ::: ', onSuccess);
+          this.props.saveToken(onSuccess);
+        },
+        () => {},
+      );
+    } else {
+      // this.props.saveToken(this.props.token);
+    }
+  }
   render() {
     return (
       <KeyboardAwareScrollView
@@ -406,8 +424,10 @@ class SignUpContainer extends React.PureComponent {
           image: this.avatarSource,
           PhoneNumber: this.state.objRegistrationDetails.mobile,
           LastName: this.state.objRegistrationDetails.lastName,
-          // language_slug: this.props.lan,
-          // date_of_birth: this.state.objRegistrationDetails.date_of_birth,
+          firebase_token: this.props.token,
+          device_id: deviceInfoModule.getDeviceId(),
+          language_slug: this.props.lan,
+          date_of_birth: this.state.objRegistrationDetails.date_of_birth,
         };
         this.setState({isLoading: true});
         signUpUser(
@@ -457,9 +477,14 @@ export default connect(
   (state) => {
     return {
       lan: state.userOperations.lan,
+      token: state.userOperations.token,
     };
   },
-  () => {
-    return {};
+  (dispatch) => {
+    return {
+      saveToken: (token) => {
+        dispatch(saveUserFCMInRedux(token));
+      },
+    };
   },
 )(SignUpContainer);

@@ -148,7 +148,7 @@ class AccountContainer extends React.Component {
   /** YES BUTTON TAP EVENT OF LOGOUT CONFIRMATION DIALOGUE */
   onYesClick = () => {
     // CALL LOGOUT API
-    global.isSkipUser = true ? this.onLogoutSuccess() : this.callLogoutAPI();
+    this.callLogoutAPI();
   };
 
   /** NO BUTTON TAP EVENT OF LOGOUT CONFIRMATION DIALOGUE */

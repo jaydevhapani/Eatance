@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
-// import messaging from "@react-native-firebase/messaging"
-import firebase from '@react-native-firebase/app';
+import messaging from '@react-native-firebase/messaging';
+// import firebase from '@react-native-firebase/app';
 import {debugLog} from './EDConstants';
 
 export const checkFirebasePermission = async (
@@ -36,7 +36,8 @@ export const checkFirebasePermission = async (
 };
 
 const getToken = async (onSuccess, onFailure) => {
-  var fcmToken = await firebase.messaging().getToken();
+  var fcmToken = await messaging().getToken();
+  console.log('fcmToken :::::: ', fcmToken);
   if (fcmToken !== '') {
     onSuccess(fcmToken);
   } else {
@@ -46,7 +47,7 @@ const getToken = async (onSuccess, onFailure) => {
 
 const requestPermission = async (onSuccessRequest, onFailureRequest) => {
   try {
-    await firebase.messaging().requestPermission();
+    await messaging().requestPermission();
     // User has authorised
     debugLog('User has notification permissions enabled.');
     getToken(onSuccessRequest, onFailureRequest);

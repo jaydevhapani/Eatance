@@ -312,10 +312,10 @@ class AddressListContainer extends React.PureComponent {
       if (isConnected) {
         let objaddressListParams = {
           user_id: this.props.UserID,
-          // language_slug: this.props.lan,
-          // showonly_main: 1,
+          language_slug: this.props.lan,
+          showonly_main: 1,
         };
-        console.log("objaddressListParams :: => ", objaddressListParams)
+        console.log('objaddressListParams :: => ', objaddressListParams);
         getAddressList(
           objaddressListParams,
           this.onAddressListSuccess,
@@ -366,11 +366,11 @@ class AddressListContainer extends React.PureComponent {
         let objcheckDeliveryListParams = {
           user_id: this.props.UserID,
           store_id: this.props.objStoreDetails.store_id,
-          is_delivered : 1,
+          is_delivered: 1,
         };
         console.log(
           ' this.this.props.objStoreDetails ::: ',
-          objcheckDeliveryListParams
+          objcheckDeliveryListParams,
         );
         this.setState({isLoading: true});
         checkOrderDelivery(

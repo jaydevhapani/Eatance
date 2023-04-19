@@ -354,7 +354,7 @@ class MyOrdersContainer extends React.Component {
     netStatus((isConnected) => {
       if (isConnected) {
         let objGetOrdersParams = {
-          // store_id:this.props.objStoreDetails.store_id,
+          store_id: this.props.objStoreDetails.store_id,
           language_slug: this.props.lan,
           user_id: this.props.userDetails.UserID,
           count: ORDERS_PAGE_SIZE,

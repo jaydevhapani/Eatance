@@ -887,6 +887,7 @@ async function callAPI(
   debugLog('===== URL =====', url);
   debugLog('===== Body =====', JSON.stringify(params));
   debugLog('===== NON ENCRYPTED Body =====', body);
+  debugLog('===== params  ENCRYPTED=====', params);
 
   fetch(url, params)
     .then(errorHandler)

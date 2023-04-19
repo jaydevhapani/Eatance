@@ -34,8 +34,7 @@ import {netStatus} from '../utils/NetworkStatusConnection';
 import EDProgressLoader from './EDProgressLoader';
 
 const APP_STORE_LINK = 'https://epicwinesandspirits.africa/';
-const PLAY_STORE_LINK =
-  'https://epicwinesandspirits.africa/';
+const PLAY_STORE_LINK = 'https://epicwinesandspirits.africa/';
 
 class SideBar extends React.PureComponent {
   //#region LIFECYCLE METHODS
@@ -323,7 +322,7 @@ class SideBar extends React.PureComponent {
   SkipLogOut() {
     // TAKE THE USER TO INITIAL SCREEN
     global.isSkipUser == false;
-    //FLUSH ALL DATA 
+    //FLUSH ALL DATA
     this.Flush_All_Data();
     this.props.navigation.dispatch(
       StackActions.reset({
@@ -345,14 +344,12 @@ class SideBar extends React.PureComponent {
         };
         // LOGOUT CALL
         this.setState({isLoading: true});
-        global.isSkipUser == true
-          ? this.SkipLogOut()
-          : logoutUser(
-              logoutParams,
-              this.onLogoutSuccess,
-              this.onLogoutFailure,
-              this.props,
-            );
+        logoutUser(
+          logoutParams,
+          this.onLogoutSuccess,
+          this.onLogoutFailure,
+          this.props,
+        );
       } else {
         showNoInternetAlert();
       }
@@ -410,7 +407,7 @@ class SideBar extends React.PureComponent {
    */
   onLogoutSuccess = (_objSuccess) => {
     this.props.navigation.closeDrawer();
-
+    this.Flush_All_Data();
     // SAVE SELECTED ITEM IN REDUX
     this.props.saveNavigationSelection(this.arrayFinalSideMenu[0].screenName);
 

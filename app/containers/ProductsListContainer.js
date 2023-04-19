@@ -675,15 +675,23 @@ class ProductsListContainer extends React.Component {
         this.setState({isLoading: true});
         let objGetProductsParams = {
           store_id: this.props.objStoreDetails.store_id,
-          // brand_id: strSelectedBrandIDs,
+          brand_id: strSelectedBrandIDs,
           category: strSelectedCategoryIDs,
           in_stock: this.props.objFilter.shouldShowProductsInStock ? 1 : 0,
-          // prescription_required: this.props.objFilter.shouldShowProductsWithPrescription ? 1 : 0,
-          // isFeatured: this.props.objFilter.shouldShowFeaturedProducts ? 1 : 0,
+          prescription_required: this.props.objFilter
+            .shouldShowProductsWithPrescription
+            ? 1
+            : 0,
+          isFeatured: this.props.objFilter.shouldShowFeaturedProducts ? 1 : 0,
           language_slug: this.props.lan,
-          // page_no: (this.state.arrayProducts && !isForRefresh) ? parseInt(this.state.arrayProducts.length / PAGE_SIZE_PRODUCTS_LIST) + 1 : 1,
-          // count: PAGE_SIZE_PRODUCTS_LIST,
-          // search_string: this.state.strSearchString
+          page_no:
+            this.state.arrayProducts && !isForRefresh
+              ? parseInt(
+                  this.state.arrayProducts.length / PAGE_SIZE_PRODUCTS_LIST,
+                ) + 1
+              : 1,
+          count: PAGE_SIZE_PRODUCTS_LIST,
+          search_string: this.state.strSearchString,
         };
         if (!isForRefresh) {
           this.setState({isLoading: this.state.arrayProducts === undefined});

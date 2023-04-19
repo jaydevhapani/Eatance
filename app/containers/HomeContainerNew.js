@@ -61,6 +61,7 @@ import {Spinner} from 'native-base';
 import EDRTLView from '../components/EDRTLView';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import {getSelectedStore, getLanguage} from '../utils/AsyncStorageHelper';
+import DeviceInfo from 'react-native-device-info';
 
 const PAGE_SIZE_PRODUCTS_LIST = 5;
 class HomeContainerNew extends React.PureComponent {
@@ -848,7 +849,9 @@ class HomeContainerNew extends React.PureComponent {
     this.setState({isLoading: false});
   };
 
-  onChangeTokenSuccess = (objSuccess) => {};
+  onChangeTokenSuccess = (objSuccess) => {
+    console.log('onChangeTokenSuccess objSuccess:::::::::::::');
+  };
 
   /**
    *
@@ -862,7 +865,9 @@ class HomeContainerNew extends React.PureComponent {
     this.setState({isLoading: false});
   };
 
-  onChangeTokenFailure = () => {};
+  onChangeTokenFailure = () => {
+    console.log('onChangeTokenFailure onChangeTokenFailure:::::::::::::');
+  };
 
   /**
    *

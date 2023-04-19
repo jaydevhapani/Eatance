@@ -17,6 +17,9 @@ target 'Eatance' do
   #TAKE PATH FROM NODE_MODULE FOR GOOGLE MAP USE
   rn_maps_path = '../node_modules/react-native-maps'
   pod 'react-native-google-maps', :path => rn_maps_path
+
+  #FIREBASECORE
+  pod 'FirebaseCore', :modular_headers => true
   
   #LOCAL PAKCAGE PATH FOR PROJECT
   pod 'react-native-netinfo', :path => '../node_modules/@react-native-community/netinfo'

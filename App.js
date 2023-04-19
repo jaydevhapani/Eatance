@@ -27,7 +27,8 @@ import {contentOperations} from './app/redux/reducers/ContentReducer';
 import EDFloatingButton from './app/components/EDFloatingButton';
 import {floatingButtonOperations} from './app/redux/reducers/FloatingButtonReducer';
 import {filterOperations} from './app/redux/reducers/FilterReducer';
-import firebase from '@react-native-firebase/app';
+// import firebase from '@react-native-firebase/app';
+import messaging from '@react-native-firebase/messaging';
 import {strings} from './app/locales/i18n';
 import SplashScreen from 'react-native-splash-screen';
 
@@ -84,7 +85,7 @@ export default class App extends React.Component {
 
   async componentDidMount() {
     SplashScreen.hide();
-    this.createNotificationListeners();
+    // this.createNotificationListeners();
     if (Platform.OS === 'ios') {
       KeyboardManager.setEnable(true);
       KeyboardManager.setEnableDebugging(false);
@@ -103,151 +104,82 @@ export default class App extends React.Component {
     }
   }
 
-  async createNotificationListeners() {
-    /*
-     * Triggered when a particular notification has been received in foreground
-     * */
-    this.notificationListener = firebase
-      .notifications()
-      .onNotification((notification) => {
-        const {title, body, data} = notification;
-
-        console.log('NOTIFICATION TYPE :::::::::::::::: ', notification);
-
-        showDialogue(body || '', title || '', [], () => {
-          if (data.screenType === 'order') {
-            NavigationService.navigateToSpecificRoute('myOrders');
-          } else if (data.screenType === 'noti') {
-            NavigationService.navigateToSpecificRoute('notifications');
-          } else if (data.screenType === 'delivery') {
-            NavigationService.navigateToSpecificRoute('myOrders');
-          }
-        });
-      });
-
-    /*
-     * If your app is in background, you can listen for when a notification is clicked / tapped / opened as follows:
-     * */
-
-    this.notificationOpenedListener = firebase
-      .notifications()
-      .onNotificationOpened((notificationOpen) => {
-        const {data} = notificationOpen.notification;
-        console.log(
-          'NOTIFICATION OPEN TYPE :::::::::::::::: ',
-          notificationOpen.notification,
-        );
-        if (data.screenType === 'order') {
-          NavigationService.navigateToOrderPage('myOrders');
-        } else if (data.screenType === 'noti') {
-          NavigationService.navigateToOrderPage('notifications');
-        } else if (data.screenType === 'delivery') {
-          NavigationService.navigateToSpecificRoute('myOrders');
-        }
-      });
-
-    /*
-     * If your app is closed, you can check if it was opened by a notification being clicked / tapped / opened as follows:
-     * */
-    const notificationOpen = await firebase
-      .notifications()
-      .getInitialNotification();
-    if (notificationOpen) {
-      const {data, notificationId} = notificationOpen.notification;
-
-      const lastNotification = await AsyncStorage.getItem('lastNotification');
-      console.log('NOTIFICATION DATA :::::::::::::::: ', data);
-      if (lastNotification !== notificationId) {
-        if (data.screenType === 'order') {
-          this.isNotification = ORDER_TYPE;
-          this.setState({isRefresh: this.state.isRefresh ? false : true});
-          NavigationService.navigateToOrderPage('myOrders');
-        } else if (data.screenType === 'noti') {
-          this.isNotification = NOTIFICATION_TYPE;
-          this.setState({isRefresh: this.state.isRefresh ? false : true});
-        }
-        await AsyncStorage.setItem('lastNotification', notificationId);
-      }
-    }
-    /*
-     * Triggered for data only payload in foreground
-     * */
-    this.messageListener = firebase.messaging().onMessage(() => {
-      //process data message
-    });
-
-    if (this.isNotification == undefined) {
-      this.isNotification = DEFAULT_TYPE;
-      this.setState({isRefresh: this.state.isRefresh ? false : true});
-    }
-  }
-
   // async createNotificationListeners() {
+  //   /*
+  //    * Triggered when a particular notification has been received in foreground
+  //    * */
+  //   this.notificationListener = firebase
+  //     .notifications()
+  //     .onNotification((notification) => {
+  //       const {title, body, data} = notification;
+
+  //       console.log('NOTIFICATION TYPE :::::::::::::::: ', notification);
+
+  //       showDialogue(body || '', title || '', [], () => {
+  //         if (data.screenType === 'order') {
+  //           NavigationService.navigateToSpecificRoute('myOrders');
+  //         } else if (data.screenType === 'noti') {
+  //           NavigationService.navigateToSpecificRoute('notifications');
+  //         } else if (data.screenType === 'delivery') {
+  //           NavigationService.navigateToSpecificRoute('myOrders');
+  //         }
+  //       });
+  //     });
+
+  //   /*
+  //    * If your app is in background, you can listen for when a notification is clicked / tapped / opened as follows:
+  //    * */
+
+  //   this.notificationOpenedListener = firebase
+  //     .notifications()
+  //     .onNotificationOpened((notificationOpen) => {
+  //       const {data} = notificationOpen.notification;
+  //       console.log(
+  //         'NOTIFICATION OPEN TYPE :::::::::::::::: ',
+  //         notificationOpen.notification,
+  //       );
+  //       if (data.screenType === 'order') {
+  //         NavigationService.navigateToOrderPage('myOrders');
+  //       } else if (data.screenType === 'noti') {
+  //         NavigationService.navigateToOrderPage('notifications');
+  //       } else if (data.screenType === 'delivery') {
+  //         NavigationService.navigateToSpecificRoute('myOrders');
+  //       }
+  //     });
 
   //   /*
   //    * If your app is closed, you can check if it was opened by a notification being clicked / tapped / opened as follows:
   //    * */
-  //   const notificationOpen = await firebase.messaging()
+  //   const notificationOpen = await firebase
+  //     .notifications()
   //     .getInitialNotification();
-
   //   if (notificationOpen) {
-  //     const {
-  //       title,
-  //       notification,
-  //       data,
-  //       messageId
-  //     } = notificationOpen;
+  //     const {data, notificationId} = notificationOpen.notification;
 
-  //     console.log("Notification Data :::::: ", notificationOpen)
-  //     const lastNotification = await AsyncStorage.getItem("lastNotification");
-  //     console.log("NOTIFICATION DATA :::::::::::::::: ", data)
-  //     if (lastNotification !== messageId) {
-  //       if (data.screenType == "order") {
+  //     const lastNotification = await AsyncStorage.getItem('lastNotification');
+  //     console.log('NOTIFICATION DATA :::::::::::::::: ', data);
+  //     if (lastNotification !== notificationId) {
+  //       if (data.screenType === 'order') {
   //         this.isNotification = ORDER_TYPE;
-  //         this.setState({ isRefresh: this.state.isRefresh ? false : true });
-  //       } else if (data.screenType == "noti") {
+  //         this.setState({isRefresh: this.state.isRefresh ? false : true});
+  //         NavigationService.navigateToOrderPage('myOrders');
+  //       } else if (data.screenType === 'noti') {
   //         this.isNotification = NOTIFICATION_TYPE;
-  //         this.setState({ isRefresh: this.state.isRefresh ? false : true });
+  //         this.setState({isRefresh: this.state.isRefresh ? false : true});
   //       }
-  //       await AsyncStorage.setItem("lastNotification", messageId);
+  //       await AsyncStorage.setItem('lastNotification', notificationId);
   //     }
   //   }
-
   //   /*
-  //    * Triggered when a particular notification has been received in foreground
+  //    * Triggered for data only payload in foreground
   //    * */
-  //   this.messageListener = firebase.messaging().onMessage(message => {
-  //     console.log("Foreground Notification :::::::::::::::::: ", message)
-
-  //     var notificationTitle = Platform.OS === 'ios'
-  //       ? message.data !== undefined && message.data.notification !== undefined ? message.data.notification.title || APP_NAME : APP_NAME
-  //       : message.notification !== undefined && message.notification.title !== undefined ? message.notification.title : APP_NAME
-
-  //     var notificationBody = Platform.OS === 'ios'
-  //       ? message.data !== undefined && message.data.notification !== undefined ? message.data.notification.body || '' : ''
-  //       : message.notification !== undefined && message.notification.body !== undefined ? message.notification.body : ''
-
-  //     var screenType = Platform.OS === 'ios'
-  //       ? message.data !== undefined && message.data.screenType !== undefined ? message.data.screenType : ''
-  //       : message.notification !== undefined && message.notification.data !== undefined ? message.notification.data.screenType || '' : ''
+  //   this.messageListener = firebase.messaging().onMessage(() => {
   //     //process data message
-  //     if (screenType == "order") {
-  //       showDialogue(notificationBody, notificationTitle, [],
-  //         () => {
-  //           NavigationService.navigateToOrderPage('myOrders')
-  //         })
-  //     }
-  //     else if (screenType == 'noti') {
-  //       showDialogue(notificationBody, notificationTitle, [],
-  //         () => {
-  //           NavigationService.navigateToOrderPage('notifications')
-  //         })
-  //     }
   //   });
 
   //   if (this.isNotification == undefined) {
   //     this.isNotification = DEFAULT_TYPE;
-  //     this.setState({ isRefresh: this.state.isRefresh ? false : true });
+  //     this.setState({isRefresh: this.state.isRefresh ? false : true});
   //   }
   // }
 }

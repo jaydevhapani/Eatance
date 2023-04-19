@@ -119,7 +119,7 @@ export default class EDForgotPassword extends React.Component {
     netStatus((isConnected) => {
       if (isConnected) {
         let objForgotPasswordParams = {
-          // language_slug: this.props.lan,
+          language_slug: this.props.lan,
           Email: this.state.email,
         };
         this.setState({isLoading: true});
